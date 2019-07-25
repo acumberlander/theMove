@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-
+import InterestRequests from './data.js'
 export class Home extends Component {
   static displayName = Home.name;
 
   render () {
+    InterestRequests.getUserInterests();
     return (
       <div>
         <h1>Hello, world!</h1>

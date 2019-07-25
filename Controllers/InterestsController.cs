@@ -23,38 +23,38 @@ namespace TheMove.Controllers
 
         // Gets all interests by user id
         [HttpGet("getInterestsByUser/{userId}")]
-        public ActionResult GetInterestsByUser(int userId)
+        public Object GetInterestsByUser(int userId)
         {
             var interestsByUser = _interestRepository.GetInterestsByUser(userId);
 
-            return Ok(interestsByUser);
+            return interestsByUser;
         }
 
         // Gets all interests by interest type id
-        [HttpGet("getInterestsByType{interestId}"]
-        public ActionResult GetInterestsByType(int interestId)
+        [HttpGet("getInterestsByType{interestTypeId}")]
+        public ActionResult GetInterestsByType(int interestTypeId)
         {
-            var interestsByType = _interestRepository.GetInterestsByType(interestId);
+            var interestsByType = _interestRepository.GetInterestsByType(interestTypeId);
 
             return Ok(interestsByType);
         }
 
         // Sets interest to active by id
         [HttpPut("activateInterest/{id}")]
-        public Interest ActivateInterest(Interest interestsObject)
+        public ActionResult ActivateInterest(int id)
         {
-            var activatedInterest = _interestRepository.ActivateInterest(interestsObject.Id);
+            var activatedInterest = _interestRepository.ActivateInterest(id);
 
-            return activatedInterest;
+            return Ok(activatedInterest);
         }
 
         // Sets interest to inactive by id
         [HttpPut("deactivateInterest/{id}")]
-        public Interest DeactivateInterest(Interest interestsObject)
+        public ActionResult DeactivateInterest(int id)
         {
-            var deactivatedInterest = _interestRepository.DeactivateInterest(interestsObject.Id);
+            var deactivatedInterest = _interestRepository.DeactivateInterest(id);
 
-            return deactivatedInterest;
+            return Ok(deactivatedInterest);
         }
     }
 }

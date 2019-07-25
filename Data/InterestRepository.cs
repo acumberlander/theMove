@@ -12,64 +12,99 @@ namespace TheMove.Data
     public class InterestRepository
     {
         readonly string _connectionString;
-        
+
         public InterestRepository(IOptions<DbConfiguration> dbConfig)
         {
             _connectionString = dbConfig.Value.ConnectionString;
         }
 
-        public List<Object> GetInterestsByUser(int userId)
+        public IEnumerable<Object> GetInterestsByUser(int userId)
         {
             using (var db = new SqlConnection(_connectionString))
             {
                 var interests = db.Query<Object>(@"
-                                    Select * from Interests
-                                    JOIN UserInterests
-                                    ON UserInterests.InterestId = Interests.id
-                                    Where userId = @userId").ToList();
+                    Select * from Interests
+                    JOIN UserInterests
+                    ON UserInterests.InterestId = Interests.id
+                    Where userId = @userId",
+                    new { userId }).ToList();
 
                 return interests;
             }
             throw new Exception("Found no interests");
         }
 
-        public Interest ActivateInterest(int id)
+        //const string ConnectionString = @"Server = localhost\sqlexpress; Database = TheMove; Trusted_Connection = True;";
+
+        //public List<Interest> GetInterestsByUser(int userId)
+        //{
+        //    var interests = new List<Interest>();
+
+        //    var connection = new SqlConnection(ConnectionString);
+
+        //    connection.Open();
+
+        //    var getAllInterestsByUserCommand = connection.CreateCommand();
+        //    getAllInterestsByUserCommand.CommandText = @"
+        //            Select * from Interests
+        //            JOIN UserInterests
+        //            ON UserInterests.InterestId = Interests.id
+        //            Where userId = @userId";
+
+        //    var reader = getAllInterestsByUserCommand.ExecuteReader();
+
+        //    while (reader.Read())
+        //    {
+        //        var id = (int)reader["Id"];
+        //        var interestName = reader["InterestName"].ToString();
+        //    }
+
+        //    connection.Close();
+
+        //    return interests;
+        //}
+
+        public bool ActivateInterest(int id)
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var updatedInterest = db.QueryFirstOrDefault<Interest>(@"
+                var updateInterestQuery = @"
                     Update Interests
                     Set IsActive = 1
-                    Where Id = @id",
-                    new { id });
+                    Where Id = @id";
+                var parameters = new { Id = id };
 
-                if (updatedInterest != null)
+                var rowsAffected = db.Execute(updateInterestQuery, parameters);
+
+                if (rowsAffected == 1)
                 {
-                    return updatedInterest;
+                    return true;
                 }
             }
             throw new Exception("Interest did not update");
         }
 
-        public Interest DeactivateInterest(int id)
+        public bool DeactivateInterest(int id)
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var updatedInterest = db.QueryFirstOrDefault<Interest>(@"
+                var updateInterestQuery = @"
                     Update Interests
                     Set IsActive = 0
-                    Where Id = @id",
-                    new { id });
+                    Where Id = @id";
+                var parameters = new { Id = id };
 
-                if (updatedInterest != null)
+                var rowsAffected = db.Execute(updateInterestQuery, parameters);
+
+                if (rowsAffected == 1)
                 {
-                    return updatedInterest;
+                    return true;
                 }
             }
             throw new Exception("Interest did not update");
         }
 
-        public List<Object> GetInterestsByType(int interestTypeId)
+        public IEnumerable<Object> GetInterestsByType(int interestTypeId)
         {
             using (var db = new SqlConnection(_connectionString))
             {
