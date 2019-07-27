@@ -31,7 +31,7 @@ namespace TheMove.Controllers
         }
 
         // Gets all interests by interest type id
-        [HttpGet("getInterestsByType{interestTypeId}")]
+        [HttpGet("getInterestsByType/{interestTypeId}")]
         public ActionResult GetInterestsByType(int interestTypeId)
         {
             var interestsByType = _interestRepository.GetInterestsByType(interestTypeId);
