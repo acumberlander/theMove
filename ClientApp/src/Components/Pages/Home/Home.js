@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import './Home.scss';
 
 export default class Home extends Component {
@@ -11,9 +12,11 @@ export default class Home extends Component {
         if (this.state.isEmpty) {
             return(
                 <div id="addItineraryButtonDiv">
-                    <Button className="addItineraryButton">
-                        +    
-                    </Button>
+                    <Link to="/thingstodo">
+                        <Button className="addItineraryButton">
+                            +    
+                        </Button>
+                    </Link>
                 </div>
             );
         } else {
