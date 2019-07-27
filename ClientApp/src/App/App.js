@@ -13,6 +13,7 @@ import NightLife from '../Components/Pages/NightLife/NightLife';
 import Entertainment from '../Components/Pages/Entertainment/Entertainment';
 import Events from '../Components/Pages/Events/Events';
 import Attractions from '../Components/Pages/Attractions/Attractions';
+import ThingsToDo from '../Components/Pages/ThingsToDo/ThingsToDo';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
                     <Route path='/entertainment' component={Entertainment} />
                     <Route path='/events' component={Events} />
                     <Route path='/attractions' component={Attractions} />
+                    <Route path='/thingstodo' component={ThingsToDo} />
                   </Switch>
                 </div>
             </React.Fragment>
