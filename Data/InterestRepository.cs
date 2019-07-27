@@ -18,11 +18,13 @@ namespace TheMove.Data
             _connectionString = dbConfig.Value.ConnectionString;
         }
 
-        public IEnumerable<Object> GetInterestsByUser(int userId)
+        const string ConnectionString = @"Server = localhost; Database = TheMove; Trusted_Connection = True;";
+
+        public IEnumerable<Interest> GetInterestsByUser(int userId)
         {
-            using (var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(ConnectionString))
             {
-                var interests = db.Query<Object>(@"
+                var interests = db.Query<Interest>(@"
                     Select * from Interests
                     JOIN UserInterests
                     ON UserInterests.InterestId = Interests.id
@@ -34,39 +36,26 @@ namespace TheMove.Data
             throw new Exception("Found no interests");
         }
 
-        //const string ConnectionString = @"Server = localhost\sqlexpress; Database = TheMove; Trusted_Connection = True;";
 
         //public List<Interest> GetInterestsByUser(int userId)
         //{
-        //    var interests = new List<Interest>();
-
-        //    var connection = new SqlConnection(ConnectionString);
-
-        //    connection.Open();
-
-        //    var getAllInterestsByUserCommand = connection.CreateCommand();
-        //    getAllInterestsByUserCommand.CommandText = @"
-        //            Select * from Interests
-        //            JOIN UserInterests
-        //            ON UserInterests.InterestId = Interests.id
-        //            Where userId = @userId";
-
-        //    var reader = getAllInterestsByUserCommand.ExecuteReader();
-
-        //    while (reader.Read())
+        //    using (var db = new SqlConnection(ConnectionString))
         //    {
-        //        var id = (int)reader["Id"];
-        //        var interestName = reader["InterestName"].ToString();
+        //        var interests = db.Query<Interest>(@"
+        //        Select * from Interests
+        //        JOIN UserInterests
+        //        ON UserInterests.InterestId = Interests.id
+        //        Where userId = @userId",
+        //            new { userId }).ToList();
+
+        //        return interests;
         //    }
-
-        //    connection.Close();
-
-        //    return interests;
+        //    throw new Exception("Found no interests");
         //}
 
         public bool ActivateInterest(int id)
         {
-            using (var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(ConnectionString))
             {
                 var updateInterestQuery = @"
                     Update Interests
@@ -86,7 +75,7 @@ namespace TheMove.Data
 
         public bool DeactivateInterest(int id)
         {
-            using (var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(ConnectionString))
             {
                 var updateInterestQuery = @"
                     Update Interests
@@ -104,17 +93,17 @@ namespace TheMove.Data
             throw new Exception("Interest did not update");
         }
 
-        public IEnumerable<Object> GetInterestsByType(int interestTypeId)
+        public IEnumerable<Interest> GetInterestsByType(int interestTypeId)
         {
-            using (var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(ConnectionString))
             {
-                var interestByType = db.Query<Object>(@"
+                var interestByType = db.Query<Interest>(@"
                     Select * from Interests
                     JOIN InterestInterestTypes
                     ON InterestInterestTypes.interestId = Interests.id
-                    Where interestTypeId = @interestTypeId").ToList();
+                    Where interestTypeId = @interestTypeId",new { interestTypeId }).ToList();
 
-                    return interestByType;
+                return interestByType;
             }
             throw new Exception("Interest did not filter by type.");
         }
