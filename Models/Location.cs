@@ -11,6 +11,6 @@ namespace TheMove.Models
         public int Id { get; set; }
         public int UserId { get; set; }
         public int ItineraryId { get; }
-        public string Name { get; set; }
+        public string LocationName { get; set; }
     }
 }

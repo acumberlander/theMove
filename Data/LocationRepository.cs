@@ -18,29 +18,16 @@ namespace TheMove.Data
             _connectionString = dbConfig.Value.ConnectionString;
         }
 
-        public List<Location> GetLocationsByUser(int userId)
+        const string ConnectionString = @"Server = localhost; Database = TheMove; Trusted_Connection = True;";
+
+        public List<Location> GetLocationsByItinerary(int itineraryId)
         {
-            using (var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(ConnectionString))
             {
-                var locationsByUser = db.Query<Location>(@"
-                                    Select * from locations
-                                    Where userId = @id").ToList();
-
-                return locationsByUser;
-            }
-
-            throw new Exception("Found no locations");
-        }
-
-        public List<Object> GetLocationsByItinerary(int intineraryId)
-        {
-            using (var db = new SqlConnection(_connectionString))
-            {
-                var locationsByItinerary = db.Query<Object>(@"
-                                     Select * from locations
-                                     JOIN ItineraryLocations
-                                     ON ItineraryLocations.LocationId = Locations.id
-                                     Where itineraryId = @itineraryId").ToList();
+                var locationsByItinerary = db.Query<Location>(@"
+                    Select * from locations
+	                Where ItineraryId = @itineraryId;",
+                    new { itineraryId }).ToList();
 
                 return locationsByItinerary;
             }
@@ -48,28 +35,55 @@ namespace TheMove.Data
             throw new Exception("Found no locations");
         }
 
-        public Location UpdateLocation(Location locationToUpdate)
+        public Location AddNewLocation(int userId, int itineraryId, string locationName)
         {
-            using (var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(ConnectionString))
             {
-                var updateQuery = @"
-                UPDATE [dbo].[Locations]
-                SET    [Name] = @name,
-                WHERE  id = @id";
+                var insertQuery = @"
+                    Insert into Locations(userId, itineraryId, locationName)
+                    Output inserted.*
+                    Values(@userId, @itineraryId, @locationName)";
 
-                var rowAffected = db.Execute(updateQuery, locationToUpdate);
-
-                if (rowAffected == 1)
+                var parameters = new
                 {
-                    return locationToUpdate;
+                    UserId = userId,
+                    ItineraryId = itineraryId,
+                    LocationName = locationName
+                };
+
+                var newLocation = db.QueryFirstOrDefault<Location>(insertQuery, parameters);
+
+                if (newLocation != null)
+                {
+                    return newLocation;
                 }
-                throw new Exception("Could not update location");
             }
+
+            throw new Exception("Could not create a location");
+        }
+
+        public Location UpdateLocation(int id)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var locationToUpdate = db.Query<Location>(@"
+                UPDATE Locations
+                SET    UserId = @userId,
+                       ItineraryId = @itineraryId,
+                       LocationName = @locationName
+                WHERE  id = @id",
+                new { id });
+
+                if (locationToUpdate != null)
+                    return locationToUpdate;
+
+            }
+            throw new Exception("Could not update location");
         }
 
         public Location DeleteLocation(int id)
         {
-            using (var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(ConnectionString))
             {
                 var locationToDelete = db.QueryFirstOrDefault<Location>(@"
                                      Delete from locations
