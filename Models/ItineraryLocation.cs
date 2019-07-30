@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TheMove.Models
 {
-    public class ItineraryLocations
+    public class ItineraryLocation
     {
         //Properties
         public int Id { get; set; }

@@ -46,6 +46,11 @@ namespace TheMove.Controllers
                 createRequest.UserId,
                 createRequest.ItineraryName);
 
+            // Adds new userItinerary
+            _itineraryRepository.AddNewUserItinerary(
+                createRequest.UserId,
+                newItinerary.Id);
+
             return Created($"/api/itineraries/{newItinerary.Id}", newItinerary);
         }
 

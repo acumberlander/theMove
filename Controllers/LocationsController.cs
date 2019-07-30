@@ -31,23 +31,42 @@ namespace TheMove.Controllers
 
         // Adds a new location 
         [HttpPost("createLocation")]
-        public ActionResult AddLocation(CreateLocationRequest createRequest)
+        public ActionResult AddLocation(CreateLocationRequest createLocationRequest)
         {
             var newLocation = _locationRepository.AddNewLocation(
-                createRequest.UserId,
-                createRequest.Id,
-                createRequest.LocationName);
+                createLocationRequest.UserId,
+                createLocationRequest.ItineraryId,
+                createLocationRequest.LocationName);
+
+            // Adds new locationInterestType
+            _locationRepository.AddNewLocationInterestType(
+                createLocationRequest.InterestTypeId,
+                newLocation.Id);
+
+            // Adds new itineraryLocation
+            _locationRepository.AddNewItineraryLocation(
+                createLocationRequest.LocationId,
+                createLocationRequest.ItineraryId);
 
             return Created($"/api/locations/{newLocation.Id}", newLocation);
         }
 
         // Updates location name by id
         [HttpPut("updateLocation/{id}")]
-        public ActionResult UpdateLocation(int id)
+        public ActionResult UpdateLocation(Location locationToUpdate)
         {
-            var updatedLocation = _locationRepository.UpdateLocation(id);
+            var updatedLocation = _locationRepository.UpdateLocation(locationToUpdate);
 
             return Ok(updatedLocation);
+        }
+
+        // Deletes location by id
+        [HttpDelete("deleteLocation/{id}")]
+        public ActionResult DeleteItinerary(int id)
+        {
+            var locationToDelete = _locationRepository.DeleteLocation(id);
+
+            return Ok(locationToDelete);
         }
     }
 }

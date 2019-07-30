@@ -18,6 +18,8 @@ namespace TheMove.Data
             _connectionString = dbConfig.Value.ConnectionString;
         }
 
+        Itinerary newItinerary;
+
         const string ConnectionString = @"Server = localhost; Database = TheMove; Trusted_Connection = True;";
 
         public IEnumerable<Itinerary> GetItinerariesByUser(int userId)
@@ -49,7 +51,7 @@ namespace TheMove.Data
                     ItineraryName = itineraryName
                 };
 
-                var newItinerary = db.QueryFirstOrDefault<Itinerary>(insertQuery, parameters);
+                newItinerary = db.QueryFirstOrDefault<Itinerary>(insertQuery, parameters);
 
                 if (newItinerary != null)
                 {
@@ -58,6 +60,33 @@ namespace TheMove.Data
             }
 
             throw new Exception("Could not create a payment type");
+        }
+
+        // Creates new UserItinerary
+        public UserItinerary AddNewUserItinerary(int userId, int itineraryId)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var insertQuery = @"
+                    Insert into UserItineraries(userId, itineraryId)
+                    Output inserted.*
+                    Values(@userId, @itineraryId)";
+
+                var parameters = new
+                {
+                    userId = newItinerary.UserId,
+                    ItineraryId = itineraryId
+                };
+
+                var newUserItinerary = db.QueryFirstOrDefault<UserItinerary>(insertQuery, parameters);
+
+                if (newUserItinerary != null)
+                {
+                    return newUserItinerary;
+                }
+            }
+
+            throw new Exception("Could not create a itineraryLocation");
         }
 
         public Itinerary UpdateItineraryName(Itinerary itineraryToUpdate)

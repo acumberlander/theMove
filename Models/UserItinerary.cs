@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace TheMove.Models
 {
-    public class LocationInterestTypes
+    public class UserItinerary
     {
         //Properties
         public int Id { get; set; }
-        public int InterestTypeId { get; set; }
-        public int LocationId { get; set; }
+        public int UserId { get; set; }
+        public int ItineraryId { get; set; }
     }
 }

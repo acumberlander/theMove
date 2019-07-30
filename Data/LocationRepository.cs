@@ -20,6 +20,9 @@ namespace TheMove.Data
 
         const string ConnectionString = @"Server = localhost; Database = TheMove; Trusted_Connection = True;";
 
+        Location newLocation;
+
+        // Gets all locations based on itinerary id
         public List<Location> GetLocationsByItinerary(int itineraryId)
         {
             using (var db = new SqlConnection(ConnectionString))
@@ -35,6 +38,7 @@ namespace TheMove.Data
             throw new Exception("Found no locations");
         }
 
+        // Creates new location
         public Location AddNewLocation(int userId, int itineraryId, string locationName)
         {
             using (var db = new SqlConnection(ConnectionString))
@@ -51,7 +55,7 @@ namespace TheMove.Data
                     LocationName = locationName
                 };
 
-                var newLocation = db.QueryFirstOrDefault<Location>(insertQuery, parameters);
+                newLocation = db.QueryFirstOrDefault<Location>(insertQuery, parameters);
 
                 if (newLocation != null)
                 {
@@ -62,25 +66,82 @@ namespace TheMove.Data
             throw new Exception("Could not create a location");
         }
 
-        public Location UpdateLocation(int id)
+        // Creates new LocationInterestType
+        public LocationInterestType AddNewLocationInterestType(int interestTypeId, int locationId)
         {
             using (var db = new SqlConnection(ConnectionString))
             {
-                var locationToUpdate = db.Query<Location>(@"
+                var insertQuery = @"
+                    Insert into LocationInterestTypes(interestTypeId, locationId)
+                    Output inserted.*
+                    Values(@interestTypeId, @locationId)";
+
+                var parameters = new
+                {
+                    InterestTypeId = interestTypeId,
+                    LocationId = locationId
+                };
+
+                var newLocationInterestType = db.QueryFirstOrDefault<LocationInterestType>(insertQuery, parameters);
+
+                if (newLocationInterestType != null)
+                {
+                    return newLocationInterestType;
+                }
+            }
+
+            throw new Exception("Could not create a locationInterestType");
+        }
+
+        // Creates new ItineraryLocation
+        public ItineraryLocation AddNewItineraryLocation(int locationId, int itineraryId)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var insertQuery = @"
+                    Insert into ItineraryLocations(locationId, itineraryId)
+                    Output inserted.*
+                    Values(@locationId, @itineraryId)";
+
+                var parameters = new
+                {
+                    LocationId = newLocation.Id,
+                    ItineraryId = itineraryId
+                };
+
+                var newItineraryLocation = db.QueryFirstOrDefault<ItineraryLocation>(insertQuery, parameters);
+
+                if (newItineraryLocation != null)
+                {
+                    return newItineraryLocation;
+                }
+            }
+
+            throw new Exception("Could not create a itineraryLocation");
+        }
+
+        // Sets location to new info
+        public Location UpdateLocation(Location locationToUpdate)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var updateQuery = @"
                 UPDATE Locations
                 SET    UserId = @userId,
                        ItineraryId = @itineraryId,
                        LocationName = @locationName
-                WHERE  id = @id",
-                new { id });
+                WHERE  id = @id";
 
-                if (locationToUpdate != null)
+                var rowAffected = db.Execute(updateQuery, locationToUpdate);
+
+                if (rowAffected == 1)
                     return locationToUpdate;
 
             }
             throw new Exception("Could not update location");
         }
 
+        // Deletes one location
         public Location DeleteLocation(int id)
         {
             using (var db = new SqlConnection(ConnectionString))
