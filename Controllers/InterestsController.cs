@@ -23,11 +23,11 @@ namespace TheMove.Controllers
 
         // Gets all interests by user id
         [HttpGet("getInterestsByUser/{userId}")]
-        public Object GetInterestsByUser(int userId)
+        public ActionResult GetInterestsByUser(int userId)
         {
             var interestsByUser = _interestRepository.GetInterestsByUser(userId);
 
-            return interestsByUser;
+            return Ok(interestsByUser);
         }
 
         // Gets all interests by interest type id

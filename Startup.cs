@@ -28,6 +28,7 @@ namespace TheMove
             services.AddTransient<InterestRepository>();
             services.AddTransient<InterestTypeRepository>();
             services.AddTransient<LocationRepository>();
+            services.AddTransient<ItineraryRepository>();
             services.AddSingleton<IConfiguration>(Configuration);
 
             // In production, the React files will be served from this directory

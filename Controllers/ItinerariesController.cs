@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TheMove.Data;
+using TheMove.Models;
 
 namespace TheMove.Controllers
 {
@@ -11,36 +13,55 @@ namespace TheMove.Controllers
     [ApiController]
     public class ItinerariesController : ControllerBase
     {
-        // GET: api/Itinerary
-        [HttpGet]
-        public IEnumerable<string> Get()
+        readonly ItineraryRepository _itineraryRepository;
+
+        public ItinerariesController(ItineraryRepository itineraryRepository)
         {
-            return new string[] { "value1", "value2" };
+            _itineraryRepository = itineraryRepository;
         }
 
-        // GET: api/Itinerary/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        // Gets all itineraries by user id
+        [HttpGet("getItinerariesByUser/{userId}")]
+        public ActionResult GetItinerariesByUser(int userId)
         {
-            return "value";
+            var itinerariesByUser = _itineraryRepository.GetItinerariesByUser(userId);
+
+            return Ok(itinerariesByUser);
         }
 
-        // POST: api/Itinerary
-        [HttpPost]
-        public void Post([FromBody] string value)
+        // Updates itinerary name by id
+        [HttpPut("updateItineraryName/{id}")]
+        public  ActionResult UpdateItineraryName(Itinerary itineraryToUpdate)
         {
+            var updatedItineraryName = _itineraryRepository.UpdateItineraryName(itineraryToUpdate);
+
+            return Ok(updatedItineraryName);
         }
 
-        // PUT: api/Itinerary/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // Adds a new itinerary 
+        [HttpPost("createItinerary")]
+        public ActionResult AddItinerary(CreateItineraryRequest createRequest)
         {
+            var newItinerary = _itineraryRepository.AddNewItinerary(
+                createRequest.UserId,
+                createRequest.ItineraryName);
+
+            // Adds new userItinerary
+            _itineraryRepository.AddNewUserItinerary(
+                createRequest.UserId,
+                newItinerary.Id);
+
+            return Created($"/api/itineraries/{newItinerary.Id}", newItinerary);
         }
+
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("deleteItinerary/{id}")]
+        public ActionResult DeleteItinerary(int id)
         {
+            var itineraryToDelete = _itineraryRepository.DeleteItinerary(id);
+
+            return Ok(itineraryToDelete);
         }
     }
 }

@@ -36,22 +36,20 @@ namespace TheMove.Data
             throw new Exception("Found no interests");
         }
 
+        public IEnumerable<Interest> GetInterestsByType(int interestTypeId)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var interestByType = db.Query<Interest>(@"
+                    Select * from Interests
+                    JOIN InterestInterestTypes
+                    ON InterestInterestTypes.interestId = Interests.id
+                    Where interestTypeId = @interestTypeId", new { interestTypeId }).ToList();
 
-        //public List<Interest> GetInterestsByUser(int userId)
-        //{
-        //    using (var db = new SqlConnection(ConnectionString))
-        //    {
-        //        var interests = db.Query<Interest>(@"
-        //        Select * from Interests
-        //        JOIN UserInterests
-        //        ON UserInterests.InterestId = Interests.id
-        //        Where userId = @userId",
-        //            new { userId }).ToList();
-
-        //        return interests;
-        //    }
-        //    throw new Exception("Found no interests");
-        //}
+                return interestByType;
+            }
+            throw new Exception("Interest did not filter by type.");
+        }
 
         public bool ActivateInterest(int id)
         {
@@ -91,21 +89,6 @@ namespace TheMove.Data
                 }
             }
             throw new Exception("Interest did not update");
-        }
-
-        public IEnumerable<Interest> GetInterestsByType(int interestTypeId)
-        {
-            using (var db = new SqlConnection(ConnectionString))
-            {
-                var interestByType = db.Query<Interest>(@"
-                    Select * from Interests
-                    JOIN InterestInterestTypes
-                    ON InterestInterestTypes.interestId = Interests.id
-                    Where interestTypeId = @interestTypeId",new { interestTypeId }).ToList();
-
-                return interestByType;
-            }
-            throw new Exception("Interest did not filter by type.");
         }
     }
 }
