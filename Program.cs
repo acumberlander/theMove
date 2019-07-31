@@ -14,11 +14,20 @@ namespace TheMove
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            var configuration = new ConfigurationBuilder()
+           .SetBasePath(Directory.GetCurrentDirectory())
+           .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+
+           // custom config file
+           .AddJsonFile("localSettings.json", optional: false, reloadOnChange: false)
+           .Build();
+
+            CreateWebHostBuilder(args,configuration).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args,IConfiguration configuration) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseConfiguration(configuration)
                 .UseStartup<Startup>();
     }
 }
