@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GoogleMapsRequest from '../../../Helpers/Data/GoogleAPI/GoogleMapsRequests';
+import LeisureRequests from '../../../Helpers/Data/GoogleRequests/LeisureRequests';
 import InterestTypeCard from '../../InterestTypeCard/InterestTypeCard';
 
 export default class Leisure extends Component {
@@ -17,7 +17,7 @@ export default class Leisure extends Component {
         // also changes the 'current' state property to 'art'
         const getNashvilleArt = () => {
             this.setState({ current: 'art' })
-            GoogleMapsRequest.getArtInNashville()
+            LeisureRequests.getArtInNashville()
             .then((results) => {
                 this.setState({ art: [results] })
                     console.log(results);
@@ -30,7 +30,7 @@ export default class Leisure extends Component {
         // also changes the 'current' state property to 'parks'
         const getNashvilleParks = () => {
             this.setState({ current: 'parks' })
-            GoogleMapsRequest.getParksInNashville()
+            LeisureRequests.getParksInNashville()
             .then((results) => {
                 this.setState({ parks: [results] })
                     console.log(results);
@@ -43,7 +43,7 @@ export default class Leisure extends Component {
         // also changes the 'current' state property to 'museums'
         const getNashvilleMuseums = () => {
             this.setState({ current: 'museums' })
-            GoogleMapsRequest.getCafesInNashville()
+            LeisureRequests.getMuseumsInNashville()
             .then((results) => {
                 this.setState({ museums: [results] })
                     console.log(results);

@@ -1,0 +1,71 @@
+.cardContainer {
+	display: flex;
+	// flex-wrap: wrap;
+	margin-top: 30px; // <=== **** BE SURE TO GET RID OF THIS WHEN YOU'RE DONE STYLING!!!!! *****
+	border: none;
+	border-radius: 2rem;
+	height: 275px;
+	width: 900px;
+	background-color: #0BB7C6;
+	color: white;
+	font-size: 18px;
+}
+
+.interestCardImg {
+	height: 275px;
+	width: 225px;
+	border-radius: 2rem;
+	margin-right: 30px;
+	border: 1px solid white;
+}
+
+.interestCardHeader {
+	text-align: left;
+}
+
+.lineBreak {
+	border: 1px solid white;
+	width: 550px;
+	margin: 0;
+}
+
+.col-8 {
+	padding: 0;
+	width: 300px;
+}
+
+.col-4 {
+	padding: 0;
+}
+
+.row {
+	width: 500px;
+}
+
+.interestCardHeader {
+	h3 {
+		margin: 20px 0 0 0;
+	}
+}
+
+.subHeader {
+	margin-top: 15px;
+}
+
+.addressAndCost {
+	text-align: left;
+	margin-right: 100px;
+	margin-left: 15px;
+	width: 200px;
+	p {
+		margin: 0;
+		padding: 0;
+	}
+}
+
+.distanceAndTime {
+	font-size: 30px;
+	p, h5 {
+		padding: 0;
+	}
+}
