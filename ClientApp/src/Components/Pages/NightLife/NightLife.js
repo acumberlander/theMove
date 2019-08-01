@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import NightLifeRequests from '../../../Helpers/Data/GoogleRequests/NightLifeRequests';
 import InterestTypeCard from '../../InterestTypeCard/InterestTypeCard';
+import { Link } from 'react-router-dom';
+import BackArrow from '../../../img/backArrow.png';
+import './NightLife.scss';
 
 export default class NightLife extends Component {
     state = {
@@ -18,39 +21,36 @@ export default class NightLife extends Component {
             this.setState({ current: 'clubs' })
             NightLifeRequests.getClubsInNashville()
             .then((results) => {
-                this.setState({ clubs: [results] })
+                this.setState({ clubs: results })
                     console.log(results);
                 }
             )
         }
 
-        // ***** THIS FUNCTION HAS NOT BEEN CREATED YET ***** //
         // function that gets bars in Nashville area and stores them into state
         // also changes the 'current' state property to 'bars'
         const getNashvilleBars = () => {
             this.setState({ current: 'bars' })
             NightLifeRequests.getBarsInNashville()
             .then((results) => {
-                this.setState({ bars: [results] })
+                this.setState({ bars: results })
                     console.log(results);
                 }
             )
         }
 
-        // ***** NEED TO BUILD INTERESTTYPECARD COMPONENT ***** //
         // function to build out cards for each club item
-        const clubItemComponents = clubs.map(club => (
+        const clubItemComponents = clubs.map(item => (
             <InterestTypeCard
-              club={club}
-              key={club.id}
+                item={item}
+                key={item.id}
             />));
 
-        // ***** NEED TO BUILD INTERESTTYPECARD COMPONENT ***** //
         // function to build out cards for each bar item
-        const barItemComponents = bars.map(bar => (
+        const barItemComponents = bars.map(item => (
             <InterestTypeCard
-              bar={bar}
-              key={bar.id}
+                item={item}
+                key={item.id}
             />));
 
         /* function that builds the intial buttons for the options: Clubs and Bars */
@@ -72,12 +72,13 @@ export default class NightLife extends Component {
                 )
             }
 
-            /* NONE OF THE IF STATEMENTS WILL WORK BECAUSE YOU NEED TO BUILD THE INTERESTTYPECARD COMPONENT. */
             /* loads club items in the leisure interest container 
                 if the 'current' property instate is equal to 'clubs'. */
             if (current === 'clubs') {
                 return (
-                    {clubItemComponents}
+                    <div>
+                        {clubItemComponents}
+                    </div>
                 );
             }
 
@@ -85,7 +86,9 @@ export default class NightLife extends Component {
                 if the 'current' property instate is equal to 'bars'. */
             if (current === 'bars') {
                 return (
-                    {barItemComponents}
+                    <div>
+                        {barItemComponents}
+                    </div>
                 )
             }
         }
@@ -93,7 +96,16 @@ export default class NightLife extends Component {
         return (
             <div>
                 <div className="interestContainer">
-                    <h1>Night Life</h1>
+                <div className="row">
+                            <div className="arrowDiv col-4">
+                                <Link to="/thingstodo">
+                                    <img className="backArrow" src={BackArrow} alt="back"></img>
+                                </Link>
+                            </div>
+                            <div className="interestHeaderDiv col-8">
+                                <h1>Night Life</h1>
+                            </div>
+                        </div>
                     <div className="interestTypeContainer">
                         {buildInitialButtons()}
                     </div>

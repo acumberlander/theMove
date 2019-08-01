@@ -7,7 +7,7 @@ export default class InterestTypeCard extends Component {
 		const { item } = this.props;
 		const photoRef = item.photos[0].photo_reference;
 		const apiKey = ApiKeys.data.apiKey;
-		const htmlAttribute = item.photos[0].html_attributions[0];
+		// const htmlAttribute = item.photos[0].html_attributions[0];
 
 		return (
 			<div className="cardContainer">
@@ -18,7 +18,7 @@ export default class InterestTypeCard extends Component {
 						<h3 className="">{item.name}</h3>
 					</div>
 					<hr className="lineBreak"></hr>
-					<div className="row">
+					<div className="row detailsDiv">
 						<div className="addressAndCost">
 							<h5 className="subHeader">Address</h5>
 							<p className="">{item.formatted_address}</p>
