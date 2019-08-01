@@ -16,6 +16,7 @@
 .interestTypeContainer {
     display: flex;
     justify-content: center;
+    overflow: auto;
     height: 600px;
     width: 1000px;
     border-radius: 4rem;

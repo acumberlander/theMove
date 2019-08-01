@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import './FoodAndDrink.scss';
-import GoogleMapsRequest from '../../../Helpers/Data/GoogleAPI/GoogleMapsRequests';
+import FoodAndDrinkRequests from '../../../Helpers/Data/GoogleRequests/FoodAndDrinkRequests';
 import InterestTypeCard from '../../InterestTypeCard/InterestTypeCard';
+import './FoodAndDrink.scss';
 
 export default class FoodAndDrink extends Component {
     state = {
@@ -18,9 +18,9 @@ export default class FoodAndDrink extends Component {
         // also changes the 'current' state property to 'restaurants'
         const getNashvilleRestaurants = () => {
             this.setState({ current: 'restaurants' })
-            GoogleMapsRequest.getRestaurantsInNashville()
+            FoodAndDrinkRequests.getRestaurantsInNashville()
             .then((results) => {
-                this.setState({ restaurants: [results] })
+                this.setState({ restaurants: results })
                     console.log(results);
                 }
             )
@@ -31,9 +31,9 @@ export default class FoodAndDrink extends Component {
         // also changes the 'current' state property to 'cafes'
         const getNashvilleCafes = () => {
             this.setState({ current: 'cafes' })
-            GoogleMapsRequest.getCafesInNashville()
+            FoodAndDrinkRequests.getCafesInNashville()
             .then((results) => {
-                this.setState({ cafes: [results] })
+                this.setState({ cafes: results })
                     console.log(results);
                 }
             )
@@ -44,9 +44,9 @@ export default class FoodAndDrink extends Component {
         // also changes the 'current' state property to 'bars'
         const getNashvilleBars = () => {
             this.setState({ current: 'cafes' })
-            GoogleMapsRequest.getCafesInNashville()
+            FoodAndDrinkRequests.getCafesInNashville()
             .then((results) => {
-                this.setState({ cafes: [results] })
+                this.setState({ cafes: results })
                     console.log(results);
                 }
             )
@@ -54,26 +54,26 @@ export default class FoodAndDrink extends Component {
 
         // ***** NEED TO BUILD INTERESTTYPECARD COMPONENT ***** //
         // function to build out cards for each restaurant item
-        const restaurantItemComponents = restaurants.map(restaurant => (
+        const restaurantItemComponents = restaurants.map(item => (
             <InterestTypeCard
-              restaurant={restaurant}
-              key={restaurant.id}
+                item={item}
+                key={item.id}
             />));
 
         // ***** NEED TO BUILD INTERESTTYPECARD COMPONENT ***** //
         // function to build out cards for each cafe item
-        const cafeItemComponents = cafes.map(cafe => (
+        const cafeItemComponents = cafes.map(item => (
             <InterestTypeCard
-              cafe={cafe}
-              key={cafe.id}
+                item={item}
+                key={item.id}
             />));
 
         // ***** NEED TO BUILD INTERESTTYPECARD COMPONENT ***** //
         // function to build out cards for each bar item
-        const barItemComponents = bars.map(bar => (
+        const barItemComponents = bars.map(item => (
             <InterestTypeCard
-              bar={bar}
-              key={bar.id}
+                item={item}
+                key={item.id}
             />));
 
         /* function that builds the intial buttons for the options: Restaurants, Cafés, and Bars */
@@ -86,12 +86,12 @@ export default class FoodAndDrink extends Component {
                                 <h2>Restaurants</h2>
                             </div>
                         </button>
-                        <button>
+                        <button onClick={getNashvilleCafes}>
                             <div className="interestTypeCard">
                                 <h2>Cafés</h2>
                             </div>
                         </button>
-                        <button>
+                        <button onClick={getNashvilleBars}>
                             <div className="interestTypeCard">
                                 <h2>Bars</h2>
                             </div>
@@ -105,7 +105,9 @@ export default class FoodAndDrink extends Component {
                 if the 'current' property instate is equal to 'restaurants'. */
             if (current === 'restaurants') {
                 return (
-                    {restaurantItemComponents}
+                    <div>
+                        {restaurantItemComponents}
+                    </div>
                 );
             }
 
@@ -113,7 +115,9 @@ export default class FoodAndDrink extends Component {
                 if the 'current' property instate is equal to 'cafes'. */
             if (current === 'cafes') {
                 return (
-                    {cafeItemComponents}
+                    <div>
+                        {cafeItemComponents}
+                    </div>
                 )
             }
 
@@ -121,7 +125,9 @@ export default class FoodAndDrink extends Component {
                 if the 'current' property instate is equal to 'bars'. */
             if (current === 'bars') {
                 return (
-                    {barItemComponents}
+                    <div>
+                        {barItemComponents}
+                    </div>
                 )
             }
         }

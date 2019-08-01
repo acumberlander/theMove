@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GoogleMapsRequest from '../../../Helpers/Data/GoogleAPI/GoogleMapsRequests';
+import NightLifeRequests from '../../../Helpers/Data/GoogleRequests/NightLifeRequests';
 import InterestTypeCard from '../../InterestTypeCard/InterestTypeCard';
 
 export default class NightLife extends Component {
@@ -16,7 +16,7 @@ export default class NightLife extends Component {
         // also changes the 'current' state property to 'clubs'
         const getNashvilleClubs = () => {
             this.setState({ current: 'clubs' })
-            GoogleMapsRequest.getArtInNashville()
+            NightLifeRequests.getClubsInNashville()
             .then((results) => {
                 this.setState({ clubs: [results] })
                     console.log(results);
@@ -29,7 +29,7 @@ export default class NightLife extends Component {
         // also changes the 'current' state property to 'bars'
         const getNashvilleBars = () => {
             this.setState({ current: 'bars' })
-            GoogleMapsRequest.getBarsInNashville()
+            NightLifeRequests.getBarsInNashville()
             .then((results) => {
                 this.setState({ bars: [results] })
                     console.log(results);
