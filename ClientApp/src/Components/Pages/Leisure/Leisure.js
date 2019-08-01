@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import LeisureRequests from '../../../Helpers/Data/GoogleRequests/LeisureRequests';
 import InterestTypeCard from '../../InterestTypeCard/InterestTypeCard';
+import { Link } from 'react-router-dom';
+import BackArrow from '../../../img/backArrow.png';
+import './Leisure.scss';
+
 
 export default class Leisure extends Component {
     state = {
@@ -19,60 +23,55 @@ export default class Leisure extends Component {
             this.setState({ current: 'art' })
             LeisureRequests.getArtInNashville()
             .then((results) => {
-                this.setState({ art: [results] })
+                this.setState({ art: results })
                     console.log(results);
                 }
             )
         }
 
-        // ***** THIS FUNCTION HAS NOT BEEN CREATED YET ***** //
         // function that gets parks in Nashville area and stores them into state
         // also changes the 'current' state property to 'parks'
         const getNashvilleParks = () => {
             this.setState({ current: 'parks' })
             LeisureRequests.getParksInNashville()
             .then((results) => {
-                this.setState({ parks: [results] })
+                this.setState({ parks: results })
                     console.log(results);
                 }
             )
         }
 
-        // ***** THIS FUNCTION HAS NOT BEEN CREATED YET ***** //
         // function that gets museums in Nashville area and stores them into state
         // also changes the 'current' state property to 'museums'
         const getNashvilleMuseums = () => {
             this.setState({ current: 'museums' })
             LeisureRequests.getMuseumsInNashville()
             .then((results) => {
-                this.setState({ museums: [results] })
+                this.setState({ museums: results })
                     console.log(results);
                 }
             )
         }
 
-        // ***** NEED TO BUILD INTERESTTYPECARD COMPONENT ***** //
         // function to build out cards for each art item
-        const artItemComponents = art.map(art => (
+        const artItemComponents = art.map(item => (
             <InterestTypeCard
-              art={art}
-              key={art.id}
+                item={item}
+                key={item.id}
             />));
 
-        // ***** NEED TO BUILD INTERESTTYPECARD COMPONENT ***** //
         // function to build out cards for each park item
-        const parkItemComponents = parks.map(park => (
+        const parkItemComponents = parks.map(item => (
             <InterestTypeCard
-              park={park}
-              key={park.id}
+                item={item}
+                key={item.id}
             />));
 
-        // ***** NEED TO BUILD INTERESTTYPECARD COMPONENT ***** //
         // function to build out cards for each museum item
-        const museumItemComponents = museums.map(museum => (
+        const museumItemComponents = museums.map(item => (
             <InterestTypeCard
-              museum={museum}
-              key={museum.id}
+                item={item}
+                key={item.id}
             />));
 
         /* function that builds the intial buttons for the options: Art, Parks, and Museums */
@@ -99,12 +98,13 @@ export default class Leisure extends Component {
                 )
             }
 
-            /* NONE OF THE IF STATEMENTS WILL WORK BECAUSE YOU NEED TO BUILD THE INTERESTTYPECARD COMPONENT. */
             /* loads art items in the leisure interest container 
                 if the 'current' property instate is equal to 'art'. */
             if (current === 'art') {
                 return (
-                    {artItemComponents}
+                    <div>
+                        {artItemComponents}
+                    </div>
                 );
             }
 
@@ -112,7 +112,9 @@ export default class Leisure extends Component {
                 if the 'current' property instate is equal to 'parks'. */
             if (current === 'parks') {
                 return (
-                    {parkItemComponents}
+                    <div>
+                        {parkItemComponents}
+                    </div>
                 )
             }
 
@@ -120,7 +122,9 @@ export default class Leisure extends Component {
                 if the 'current' property instate is equal to 'museums'. */
             if (current === 'museums') {
                 return (
-                    {museumItemComponents}
+                    <div>
+                        {museumItemComponents}       
+                    </div>
                 )
             }
         }
@@ -128,7 +132,16 @@ export default class Leisure extends Component {
         return (
             <div>
                 <div className="interestContainer">
-                    <h1>Leisure</h1>
+                <div className="row">
+                        <div className="arrowDiv col-4">
+                            <Link to="/thingstodo">
+                                <img className="backArrow" src={BackArrow} alt="back"></img>
+                            </Link>
+                        </div>
+                        <div className="interestHeaderDiv col-8">
+                            <h1>Leisure</h1>
+                        </div>
+                        </div>
                     <div className="interestTypeContainer">
                         {buildInitialButtons()}
                     </div>

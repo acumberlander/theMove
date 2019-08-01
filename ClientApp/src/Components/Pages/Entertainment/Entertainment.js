@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import BackArrow from '../../../img/backArrow.png';
 import EntertainmentRequests from '../../../Helpers/Data/GoogleRequests/EntertainmentRequests';
 import InterestTypeCard from '../../InterestTypeCard/InterestTypeCard';
+import './Entertainment.scss';
 
 export default class Entertainment extends Component {
     state = {
@@ -27,7 +30,7 @@ export default class Entertainment extends Component {
             this.setState({ current: 'cinemas' })
             EntertainmentRequests.getCinemasInNashville
             .then((results) => {
-                this.setState({ theaters: [results] })
+                this.setState({ cinemas: results })
                     console.log(results);
                 }
             )
@@ -39,7 +42,7 @@ export default class Entertainment extends Component {
             this.setState({ current: 'arcades' })
             EntertainmentRequests.getArcadesInNashville()
             .then((results) => {
-                this.setState({ arcades: [results] })
+                this.setState({ arcades: results })
                     console.log(results);
                 }
             )
@@ -51,7 +54,7 @@ export default class Entertainment extends Component {
             this.setState({ current: 'bowling alleys' })
             EntertainmentRequests.getBowlingAlleysInNashville()
             .then((results) => {
-                this.setState({ bowlingAlleys: [results] })
+                this.setState({ bowlingAlleys: results })
                     console.log(results);
                 }
             )
@@ -63,7 +66,7 @@ export default class Entertainment extends Component {
             this.setState({ current: 'skating rinks' })
             EntertainmentRequests.getSkatingRinksInNashville()
             .then((results) => {
-                this.setState({ skatingRinks: [results] })
+                this.setState({ skatingRinks: results })
                     console.log(results);
                 }
             )
@@ -75,13 +78,12 @@ export default class Entertainment extends Component {
             this.setState({ current: 'go karting' })
             EntertainmentRequests.getGoKartingInNashville()
             .then((results) => {
-                this.setState({ goKarting: [results] })
+                this.setState({ goKarts: results })
                     console.log(results);
                 }
             )
         }
 
-        // ***** NEED TO BUILD INTERESTTYPECARD COMPONENT ***** //
         // function to build out cards for each cinema item
         const cinemaItemComponents = cinemas.map(item => (
             <InterestTypeCard
@@ -89,15 +91,13 @@ export default class Entertainment extends Component {
                 key={item.id}
             />));
 
-        // ***** NEED TO BUILD INTERESTTYPECARD COMPONENT ***** //
         // function to build out cards for each arcade item
         const arcadeItemComponents = arcades.map(item => (
             <InterestTypeCard
-                arcade={arcade}
-                key={arcade.id}
+                item={item}
+                key={item.id}
             />));
 
-        // ***** NEED TO BUILD INTERESTTYPECARD COMPONENT ***** //
         // function to build out cards for each bowlingAlley item
         const bowlingAlleyItemComponents = bowlingAlleys.map(item => (
             <InterestTypeCard
@@ -105,7 +105,6 @@ export default class Entertainment extends Component {
                 key={item.id}
             />));
 
-        // ***** NEED TO BUILD INTERESTTYPECARD COMPONENT ***** //
         // function to build out cards for each arcade item
         const skatingRinkItemComponents = skatingRinks.map(item => (
             <InterestTypeCard
@@ -113,7 +112,6 @@ export default class Entertainment extends Component {
                 key={item.id}
             />));
 
-        // ***** NEED TO BUILD INTERESTTYPECARD COMPONENT ***** //
         // function to build out cards for each arcade item
         const goKartItemComponents = goKarts.map(item => (
             <InterestTypeCard
@@ -155,12 +153,13 @@ export default class Entertainment extends Component {
                 )
             }
 
-            /* NONE OF THE IF STATEMENTS WILL WORK BECAUSE YOU NEED TO BUILD THE INTERESTTYPECARD COMPONENT. */
             /* loads theater items in the entertainment interest container 
                 if the 'current' property in state is equal to 'cinemas'. */
             if (current === 'cinemas') {
                 return (
-                    {cinemaItemComponents}
+                    <div>
+                        {cinemaItemComponents}
+                    </div>
                 );
             }
 
@@ -168,7 +167,9 @@ export default class Entertainment extends Component {
                 if the 'current' property in state is equal to 'arcades'. */
             if (current === 'arcades') {
                 return (
-                    {arcadeItemComponents}
+                    <div>
+                        {arcadeItemComponents}
+                    </div>
                 )
             }
 
@@ -176,7 +177,9 @@ export default class Entertainment extends Component {
                 if the 'current' property in state is equal to 'bowling alleys'. */
             if (current === 'bowling alleys') {
                 return (
-                    {bowlingAlleyItemComponents}
+                    <div>
+                        {bowlingAlleyItemComponents}
+                    </div>
                 )
             }
 
@@ -184,7 +187,9 @@ export default class Entertainment extends Component {
                 if the 'current' property in state is equal to 'skating rinks'. */
             if (current === 'skating rinks') {
                 return (
-                    {skatingRinkItemComponents}
+                    <div>
+                        {skatingRinkItemComponents}
+                    </div>
                 )
             }
 
@@ -192,7 +197,9 @@ export default class Entertainment extends Component {
                 if the 'current' property in state is equal to 'go karting'. */
             if (current === 'go karting') {
                 return (
-                    {goKartItemComponents}
+                    <div>
+                        {goKartItemComponents}
+                    </div>
                 )
             }
         }
@@ -200,7 +207,16 @@ export default class Entertainment extends Component {
         return (
             <div>
                 <div className="interestContainer">
-                    <h1>Entertainment</h1>
+                        <div className="row">
+                            <div className="arrowDiv col-4">
+                                <Link to="/thingstodo">
+                                    <img className="backArrow" src={BackArrow} alt="back"></img>
+                                </Link>
+                            </div>
+                            <div className="interestHeaderDiv col-8">
+                                <h1>Entertainment</h1>
+                            </div>
+                        </div>
                     <div className="interestTypeContainer">
                         {buildInitialButtons()}
                     </div>

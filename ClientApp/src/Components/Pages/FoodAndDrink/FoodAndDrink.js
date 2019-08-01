@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import FoodAndDrinkRequests from '../../../Helpers/Data/GoogleRequests/FoodAndDrinkRequests';
 import InterestTypeCard from '../../InterestTypeCard/InterestTypeCard';
+import { Link } from 'react-router-dom';
+import BackArrow from '../../../img/backArrow.png';
 import './FoodAndDrink.scss';
 
 export default class FoodAndDrink extends Component {
@@ -26,7 +28,6 @@ export default class FoodAndDrink extends Component {
             )
         }
 
-        // ***** THIS FUNCTION HAS NOT BEEN CREATED YET ***** //
         // function that gets cafes in Nashville area and stores them into state
         // also changes the 'current' state property to 'cafes'
         const getNashvilleCafes = () => {
@@ -39,7 +40,6 @@ export default class FoodAndDrink extends Component {
             )
         }
 
-        // ***** THIS FUNCTION HAS NOT BEEN CREATED YET ***** //
         // function that gets bars in Nashville area and stores them into state
         // also changes the 'current' state property to 'bars'
         const getNashvilleBars = () => {
@@ -52,7 +52,6 @@ export default class FoodAndDrink extends Component {
             )
         }
 
-        // ***** NEED TO BUILD INTERESTTYPECARD COMPONENT ***** //
         // function to build out cards for each restaurant item
         const restaurantItemComponents = restaurants.map(item => (
             <InterestTypeCard
@@ -60,7 +59,6 @@ export default class FoodAndDrink extends Component {
                 key={item.id}
             />));
 
-        // ***** NEED TO BUILD INTERESTTYPECARD COMPONENT ***** //
         // function to build out cards for each cafe item
         const cafeItemComponents = cafes.map(item => (
             <InterestTypeCard
@@ -68,7 +66,6 @@ export default class FoodAndDrink extends Component {
                 key={item.id}
             />));
 
-        // ***** NEED TO BUILD INTERESTTYPECARD COMPONENT ***** //
         // function to build out cards for each bar item
         const barItemComponents = bars.map(item => (
             <InterestTypeCard
@@ -100,7 +97,6 @@ export default class FoodAndDrink extends Component {
                 )
             }
 
-            /* NONE OF THE IF STATEMENTS WILL WORK BECAUSE YOU NEED TO BUILD THE INTERESTTYPECARD COMPONENT. */
             /* loads restaurant items in the food and drink interest container 
                 if the 'current' property instate is equal to 'restaurants'. */
             if (current === 'restaurants') {
@@ -135,7 +131,16 @@ export default class FoodAndDrink extends Component {
         return (
             <div>
                 <div className="interestContainer">
-                    <h1>Food And Drink</h1>
+                <div className="row">
+                            <div className="arrowDiv col-4">
+                                <Link to="/thingstodo">
+                                    <img className="backArrow" src={BackArrow} alt="back"></img>
+                                </Link>
+                            </div>
+                            <div className="interestHeaderDiv col-8">
+                                <h1>Food and Drink</h1>
+                            </div>
+                        </div>
                     <div className="interestTypeContainer">
                         {buildInitialButtons()}
                     </div>
