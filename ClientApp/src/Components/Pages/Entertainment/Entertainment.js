@@ -23,7 +23,8 @@ export default class Entertainment extends Component {
             skatingRinks,
             bowlingAlleys,
             current } = this.state;
- 
+        const itineraryId = this.props.location.state;
+
         // function that gets cinemas in Nashville area and stores them into state
         // also changes the 'current' state property to 'cinemas'
         const getNashvilleCinemas = () => {
@@ -89,6 +90,7 @@ export default class Entertainment extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
+                interestTypeId={4}
             />));
 
         // function to build out cards for each arcade item
@@ -96,6 +98,7 @@ export default class Entertainment extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
+                interestTypeId={5}
             />));
 
         // function to build out cards for each bowlingAlley item
@@ -103,6 +106,7 @@ export default class Entertainment extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
+                interestTypeId={12}
             />));
 
         // function to build out cards for each arcade item
@@ -110,6 +114,7 @@ export default class Entertainment extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
+                interestTypeId={11}
             />));
 
         // function to build out cards for each arcade item
@@ -117,6 +122,7 @@ export default class Entertainment extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
+                interestTypeId={13}
             />));
 
         /* function that builds the intial buttons for the options: Bowling Alleys, Cinemas, Skating Rinks, Arcades, and Go-Karting */
@@ -209,7 +215,7 @@ export default class Entertainment extends Component {
                 <div className="interestContainer">
                         <div className="row">
                             <div className="arrowDiv col-4">
-                                <Link to="/thingstodo">
+                                <Link to={`/thingstodo/${itineraryId}`}>
                                     <img className="backArrow" src={BackArrow} alt="back"></img>
                                 </Link>
                             </div>

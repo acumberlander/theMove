@@ -11,16 +11,12 @@ export default class FoodAndDrink extends Component {
         cafes: [],
         bars: [],
         current: '',
-        // modalOpen: false
     }
 
-    // openModal = () => {
-    //     this.setState({ modalOpen: true })
-    //   }
-
     render() {
-        const { restaurants, cafes, bars, current, modalOpen } = this.state;
- 
+        const { restaurants, cafes, bars, current } = this.state;
+        const itineraryId = this.props.location.state;
+
         // function that gets restaurants in Nashville area and stores them into state
         // also changes the 'current' state property to 'restaurants'
         const getNashvilleRestaurants = () => {
@@ -62,7 +58,8 @@ export default class FoodAndDrink extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
-                // openModal={this.openModal}
+                itineraryId={itineraryId}
+                interestTypeId={1}
             />));
 
         // function to build out cards for each cafe item
@@ -70,7 +67,8 @@ export default class FoodAndDrink extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
-                // openModal={this.openModal}
+                itineraryId={itineraryId}
+                interestTypeId={2}
             />));
 
         // function to build out cards for each bar item
@@ -78,7 +76,8 @@ export default class FoodAndDrink extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
-                // openModal={this.openModal}
+                itineraryId={itineraryId}
+                interestTypeId={3}
             />));
 
         /* function that builds the intial buttons for the options: Restaurants, Cafés, and Bars */
@@ -140,14 +139,14 @@ export default class FoodAndDrink extends Component {
             <div>
                 <div className="interestContainer">
                 <div className="row">
-                            <div className="arrowDiv col-4">
-                                <Link to="/thingstodo">
-                                    <img className="backArrow" src={BackArrow} alt="back"></img>
-                                </Link>
-                            </div>
-                            <div className="interestHeaderDiv col-8">
-                                <h1>Food and Drink</h1>
-                            </div>
+                        <div className="arrowDiv col-4">
+                            <Link to={`/thingstodo/${itineraryId}`}>
+                                <img className="backArrow" src={BackArrow} alt="back"></img>
+                            </Link>
+                        </div>
+                        <div className="interestHeaderDiv col-8">
+                            <h1>Food and Drink</h1>
+                        </div>
                         </div>
                     <div className="interestTypeContainer">
                         {buildInitialButtons()}

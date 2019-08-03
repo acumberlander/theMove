@@ -14,6 +14,7 @@ export default class NightLife extends Component {
 
     render() {
         const { clubs, bars, current } = this.state;
+        const itineraryId = this.props.location.state;
  
         // function that gets clubs in Nashville area and stores them into state
         // also changes the 'current' state property to 'clubs'
@@ -44,6 +45,7 @@ export default class NightLife extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
+                interestTypeId={6}
             />));
 
         // function to build out cards for each bar item
@@ -51,6 +53,7 @@ export default class NightLife extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
+                interestTypeId={7}
             />));
 
         /* function that builds the intial buttons for the options: Clubs and Bars */
@@ -98,7 +101,7 @@ export default class NightLife extends Component {
                 <div className="interestContainer">
                 <div className="row">
                             <div className="arrowDiv col-4">
-                                <Link to="/thingstodo">
+                                <Link to={`/thingstodo/${itineraryId}`}>
                                     <img className="backArrow" src={BackArrow} alt="back"></img>
                                 </Link>
                             </div>

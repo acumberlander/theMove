@@ -32,7 +32,7 @@ function App() {
                     <Route path='/entertainment' component={Entertainment} />
                     <Route path='/events' component={Events} />
                     <Route path='/attractions' component={Attractions} />
-                    <Route path='/thingstodo' component={ThingsToDo} />
+                    <Route path='/thingstodo/:itineraryId' component={ThingsToDo} />
                     <Route path='/interestTypeCard' component={InterestTypeCard} />
                   </Switch>
                 </div>

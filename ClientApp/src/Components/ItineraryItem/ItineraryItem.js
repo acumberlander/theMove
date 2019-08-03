@@ -5,8 +5,8 @@ import './ItineraryItem.scss';
 export default class ItineraryItem extends Component {
 	render() {
 		return (
-			<div>
-				
+			<div className="itineraryItemContainer">
+				<h2>Itinerary Item</h2>
 			</div>
 		)
 	}
