@@ -1,16 +1,61 @@
 import React, { Component } from 'react'
+import {
+	Modal,
+	ModalBody,
+	ModalFooter,
+} from 'reactstrap';
 import ApiKeys from '../../Helpers/Data/apiKeys';
 import './InterestTypeCard.scss';
 
 export default class InterestTypeCard extends Component {
+	state = {
+		modalOpen: false,
+		selectedItems: []
+	}
+	
+	componentDidUpdate() {
+
+	}
+
+	openModal = (e) => {
+		e.preventDefault();
+		console.log(e.target);
+		this.setState({ modalOpen: true })
+	  }
+
+	closeModal() {
+		this.setState({ modalOpen: false })
+	}
+
+	
 	render() {
 		const { item } = this.props;
+		const addLocationToState = (e) => {
+			
+		}
 		const photoRef = item.photos[0].photo_reference;
 		const apiKey = ApiKeys.data.apiKey;
+		const { modalOpen } =this.state;
 		// const htmlAttribute = item.photos[0].html_attributions[0];
-
+		// const { toggle } = this.props;
+		
 		return (
-			<div className="cardContainer">
+			<div className="cardContainer" onClick={()=>this.openModal()}>
+				<div>
+					<Modal className="confirmModal"
+						isOpen={modalOpen}
+					>
+						<ModalBody className="addLocationModalBody">
+							<p>Add location to your itinerary?</p>
+						</ModalBody>
+						<ModalFooter>
+							<div className="confirmButtonsDiv">
+								<button className="confirmButton" /*onClick={}*/>Yes</button>
+								<button className="cancelButton" onClick={()=>this.closeModal()}>Cancel</button>
+							</div>
+						</ModalFooter>
+					</Modal>
+				</div>
 				<img className="interestCardImg col-4" src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=${photoRef}&key=${apiKey}`} alt="interest type item"></img>
 				{/* {htmlAttribute} */}
 				<div className="col-8">

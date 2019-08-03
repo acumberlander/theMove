@@ -10,11 +10,16 @@ export default class FoodAndDrink extends Component {
         restaurants: [],
         cafes: [],
         bars: [],
-        current: ''
+        current: '',
+        // modalOpen: false
     }
 
+    // openModal = () => {
+    //     this.setState({ modalOpen: true })
+    //   }
+
     render() {
-        const { restaurants, cafes, bars, current } = this.state;
+        const { restaurants, cafes, bars, current, modalOpen } = this.state;
  
         // function that gets restaurants in Nashville area and stores them into state
         // also changes the 'current' state property to 'restaurants'
@@ -43,10 +48,10 @@ export default class FoodAndDrink extends Component {
         // function that gets bars in Nashville area and stores them into state
         // also changes the 'current' state property to 'bars'
         const getNashvilleBars = () => {
-            this.setState({ current: 'cafes' })
-            FoodAndDrinkRequests.getCafesInNashville()
+            this.setState({ current: 'bars' })
+            FoodAndDrinkRequests.getBarsInNashville()
             .then((results) => {
-                this.setState({ cafes: results })
+                this.setState({ bars: results })
                     console.log(results);
                 }
             )
@@ -57,6 +62,7 @@ export default class FoodAndDrink extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
+                // openModal={this.openModal}
             />));
 
         // function to build out cards for each cafe item
@@ -64,6 +70,7 @@ export default class FoodAndDrink extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
+                // openModal={this.openModal}
             />));
 
         // function to build out cards for each bar item
@@ -71,6 +78,7 @@ export default class FoodAndDrink extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
+                // openModal={this.openModal}
             />));
 
         /* function that builds the intial buttons for the options: Restaurants, Cafés, and Bars */
