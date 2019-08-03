@@ -12,3 +12,9 @@
     margin: 0;
     padding: 0;
 }
+
+.itineraryItems {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}

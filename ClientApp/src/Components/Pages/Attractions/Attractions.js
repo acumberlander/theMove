@@ -27,6 +27,7 @@ export default class Attractions extends Component {
 
     render() {
         const { attractions } = this.state;
+        const itineraryId = this.props.location.state;
 
         const attractionItemComponents = attractions.map( item => (
             <InterestTypeCard
@@ -39,7 +40,7 @@ export default class Attractions extends Component {
                 <div className="interestContainer">
                     <div className="row">
                         <div className="arrowDiv col-4">
-                            <Link to="/thingstodo">
+                            <Link to={`/thingstodo${itineraryId}`}>
                                 <img className="backArrow" src={BackArrow} alt="back"></img>
                             </Link>
                         </div>

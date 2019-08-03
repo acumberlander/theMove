@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import BackendRequests from '../../Helpers/Data/BackendRequests/BackendRequests';
 import {
 	Modal,
 	ModalBody,
@@ -10,37 +11,53 @@ import './InterestTypeCard.scss';
 export default class InterestTypeCard extends Component {
 	state = {
 		modalOpen: false,
-		selectedItems: []
+		selectedItems: [],
+		locationToAdd: {}
 	}
 	
-	componentDidUpdate() {
-
+	componentDidMount() {
+		const location = {...this.props.item};
+		const itineraryId = this.props.itineraryId;
+		const interestTypeId = this.props.interestTypeId;
+		// const userId = getCurrentUserId(); <= authentication setup would allow for this
+		const myLocation = {
+			// Id: location.id,
+			UserId: 1,
+			ItineraryId: itineraryId,
+			InterestTypeId: interestTypeId,
+			LocationName: location.name,
+			Address: location.formatted_address,
+			Rating: location.rating,
+			Price: location.price_level,
+			Photo_Ref: location.photos[0].photo_reference,
+			Html_Attr: location.photos[0].html_attributions[0],
+		}
+		this.setState({locationToAdd: myLocation});
 	}
 
-	openModal = (e) => {
-		e.preventDefault();
-		console.log(e.target);
+	openModal = () => {
 		this.setState({ modalOpen: true })
 	  }
 
-	closeModal() {
+	closeModal = () => {
 		this.setState({ modalOpen: false })
+	}
+
+	saveLocation = () => {
+		const newlocationToSave = {...this.state.locationToAdd};
+		BackendRequests.addNewLocation(newlocationToSave)
 	}
 
 	
 	render() {
 		const { item } = this.props;
-		const addLocationToState = (e) => {
-			
-		}
 		const photoRef = item.photos[0].photo_reference;
 		const apiKey = ApiKeys.data.apiKey;
 		const { modalOpen } =this.state;
 		// const htmlAttribute = item.photos[0].html_attributions[0];
-		// const { toggle } = this.props;
 		
 		return (
-			<div className="cardContainer" onClick={()=>this.openModal()}>
+			<div className="cardContainer" onClick={this.openModal}>
 				<div>
 					<Modal className="confirmModal"
 						isOpen={modalOpen}
@@ -50,8 +67,8 @@ export default class InterestTypeCard extends Component {
 						</ModalBody>
 						<ModalFooter>
 							<div className="confirmButtonsDiv">
-								<button className="confirmButton" /*onClick={}*/>Yes</button>
-								<button className="cancelButton" onClick={()=>this.closeModal()}>Cancel</button>
+								<button className="confirmButton" onClick={this.saveLocation}>Yes</button>
+								<button className="cancelButton" onClick={this.closeModal}>Cancel</button>
 							</div>
 						</ModalFooter>
 					</Modal>

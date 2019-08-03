@@ -10,9 +10,15 @@ import events from '../../../img/events-icon.png';
 
 export default class ThingsToDo extends Component {
     render() {
+        const itineraryId = this.props.match.params.itineraryId;
+
         return (
             <div className="interestSquareContainer">
-                <Link to="/foodanddrink">
+                <Link to={{
+                    pathname: "/foodanddrink",
+                    state: itineraryId
+                }}
+                >
                     <div className="interestSquare">
                         <img className="interestIcon" src={foodAndDrink} alt="food and drink"></img>
                         <div className="interestTitle">
@@ -20,7 +26,11 @@ export default class ThingsToDo extends Component {
                         </div>
                     </div>
                 </Link>
-                <Link to="/events">
+                <Link to={{
+                    pathname: "/events",
+                    state: itineraryId
+                }}
+                >
                     <div className="interestSquare">
                         <img className="interestIcon" src={events} alt="events"></img>
                         <div className="interestTitle">
@@ -28,7 +38,11 @@ export default class ThingsToDo extends Component {
                         </div>
                     </div>
                 </Link>
-                <Link to="/attractions">
+                <Link to={{
+                    pathname: "/attractions",
+                    state: itineraryId
+                }}
+                >
                     <div className="interestSquare">
                         <img className="interestIcon" src={attractions} alt="attractions"></img>
                         <div className="interestTitle">
@@ -36,7 +50,11 @@ export default class ThingsToDo extends Component {
                         </div>
                     </div>
                 </Link>
-                <Link to="/entertainment">
+                <Link to={{
+                    pathname: "/entertainment",
+                    state: itineraryId
+                }}
+                >
                     <div className="interestSquare">
                         <img className="interestIcon" src={entertainment} alt="entertainment"></img>
                         <div className="interestTitle">
@@ -44,7 +62,11 @@ export default class ThingsToDo extends Component {
                         </div>
                     </div>
                 </Link>
-                <Link to="/nightlife">
+                <Link to={{
+                    pathname: "/nightlife",
+                    state: itineraryId
+                }}
+                >
                     <div className="interestSquare">
                         <img className="interestIcon" src={nightLife} alt="night life"></img>
                         <div className="interestTitle">
@@ -52,7 +74,11 @@ export default class ThingsToDo extends Component {
                         </div>
                     </div>
                 </Link>
-                <Link to="/leisure">
+                <Link to={{
+                    pathname: "/leisure",
+                    state: itineraryId
+                }}
+                >
                     <div className="interestSquare">
                         <img className="interestIcon" src={leisure} alt="leisure"></img>
                         <div className="interestTitle">
