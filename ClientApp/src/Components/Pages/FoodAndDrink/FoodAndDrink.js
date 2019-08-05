@@ -24,7 +24,6 @@ export default class FoodAndDrink extends Component {
             FoodAndDrinkRequests.getRestaurantsInNashville()
             .then((results) => {
                 this.setState({ restaurants: results })
-                    console.log(results);
                 }
             )
         }
@@ -36,7 +35,6 @@ export default class FoodAndDrink extends Component {
             FoodAndDrinkRequests.getCafesInNashville()
             .then((results) => {
                 this.setState({ cafes: results })
-                    console.log(results);
                 }
             )
         }
@@ -48,7 +46,6 @@ export default class FoodAndDrink extends Component {
             FoodAndDrinkRequests.getBarsInNashville()
             .then((results) => {
                 this.setState({ bars: results })
-                    console.log(results);
                 }
             )
         }

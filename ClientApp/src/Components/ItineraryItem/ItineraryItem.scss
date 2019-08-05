@@ -3,5 +3,46 @@
 	width: 400px;
 	margin: 15px;
 	background-color: #0BB7C6;
+	color: white;
 	border-radius: 2rem;
+}
+
+.deleteAndEditDiv {
+	display: flex;
+	flex-direction: column;
+	margin-top: 15px;
+	button {
+		background-color: #0BB7C6;
+		border: none;
+		border-radius: 50%;
+		height: 40px;
+		width: 40px;
+		margin: 10px;
+	}
+}
+
+.itineraryItemDiv {
+	display: flex;
+	justify-content: center;
+}
+
+.itineraryImgDiv {
+	height: 345px;
+	width: 400px;
+	border-radius: 2rem;
+}
+
+.itineraryImg {
+	height: 345px;
+	width: 400px;
+	border-radius: 2rem;
+}
+
+.sideInfo {
+	display: flex;
+	text-align: left;
+	flex-direction: column;
+	margin-top: 100px;
+	color: white;
+	font-size: 30px;
 }

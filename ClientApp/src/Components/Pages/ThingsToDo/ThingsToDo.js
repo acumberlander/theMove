@@ -27,18 +27,6 @@ export default class ThingsToDo extends Component {
                     </div>
                 </Link>
                 <Link to={{
-                    pathname: "/events",
-                    state: itineraryId
-                }}
-                >
-                    <div className="interestSquare">
-                        <img className="interestIcon" src={events} alt="events"></img>
-                        <div className="interestTitle">
-                            <h3>Events</h3>
-                        </div>
-                    </div>
-                </Link>
-                <Link to={{
                     pathname: "/attractions",
                     state: itineraryId
                 }}

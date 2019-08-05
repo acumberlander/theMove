@@ -28,9 +28,6 @@ export default class MyNavbar extends Component {
                     <NavItem className="newAppointment">
                         <NavLink to="/"></NavLink>
                     </NavItem>
-                    <NavItem>
-                        <NavLink to="/">Logout</NavLink>
-                    </NavItem>
                 </Nav>
             );
         }

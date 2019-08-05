@@ -33,6 +33,7 @@ export default class Attractions extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
+                itineraryId={itineraryId}
             />));
 
         return (
@@ -40,7 +41,7 @@ export default class Attractions extends Component {
                 <div className="interestContainer">
                     <div className="row">
                         <div className="arrowDiv col-4">
-                            <Link to={`/thingstodo${itineraryId}`}>
+                            <Link to={`/thingstodo/${itineraryId}`}>
                                 <img className="backArrow" src={BackArrow} alt="back"></img>
                             </Link>
                         </div>
