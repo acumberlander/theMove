@@ -15,7 +15,7 @@ const getBowlingAlleysInNashville = () => new Promise((resolve, reject) => {
 });
 
 const getSkatingRinksInNashville = () => new Promise((resolve, reject) => {
-    axios.get(`${baseUrl}/places/search/skating%rinks%20in%20Nashville`)
+    axios.get(`${baseUrl}/places/search/skating%20rinks%20in%20Nashville`)
         .then((results) => {
             const skatingRinkArray = results.data.results
             resolve(skatingRinkArray);
@@ -48,7 +48,7 @@ const getCinemasInNashville = () => new Promise((resolve, reject) => {
 });
 
 const getGoKartingInNashville = () => new Promise((resolve, reject) => {
-    axios.get(`${baseUrl}/places/search/go%karting%20in%20Nashville`)
+    axios.get(`${baseUrl}/places/search/go%20karting%20in%20Nashville`)
         .then((results) => {
             const goKartArray = results.data.results
             resolve(goKartArray);

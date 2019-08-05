@@ -46,6 +46,7 @@ export default class NightLife extends Component {
                 item={item}
                 key={item.id}
                 interestTypeId={6}
+                itineraryId={itineraryId}
             />));
 
         // function to build out cards for each bar item
@@ -54,6 +55,7 @@ export default class NightLife extends Component {
                 item={item}
                 key={item.id}
                 interestTypeId={7}
+                itineraryId={itineraryId}
             />));
 
         /* function that builds the intial buttons for the options: Clubs and Bars */
@@ -100,15 +102,15 @@ export default class NightLife extends Component {
             <div>
                 <div className="interestContainer">
                 <div className="row">
-                            <div className="arrowDiv col-4">
-                                <Link to={`/thingstodo/${itineraryId}`}>
-                                    <img className="backArrow" src={BackArrow} alt="back"></img>
-                                </Link>
-                            </div>
-                            <div className="interestHeaderDiv col-8">
-                                <h1>Night Life</h1>
-                            </div>
-                        </div>
+                    <div className="arrowDiv col-4">
+                        <Link to={`/thingstodo/${itineraryId}`}>
+                            <img className="backArrow" src={BackArrow} alt="back"></img>
+                        </Link>
+                    </div>
+                    <div className="interestHeaderDiv col-8">
+                        <h1>Night Life</h1>
+                    </div>
+                </div>
                     <div className="interestTypeContainer">
                         {buildInitialButtons()}
                     </div>

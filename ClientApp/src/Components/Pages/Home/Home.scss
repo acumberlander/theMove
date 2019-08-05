@@ -5,16 +5,41 @@
     background-color:#0BB7C6;
     border: none;
     font-size: 50px;
-    margin-top: 250px;
+    
 }
 
 #addItineraryButtonDiv {
-    margin: 0;
+    margin-top: 250px;
+    padding: 0;
+}
+
+#addItineraryButtonDiv2 {
+    margin: 20px 20px 0 0;
+    margin-top: 20px;
     padding: 0;
 }
 
 .itineraryItems {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     flex-wrap: wrap;
+}
+
+#headerAndButtonDiv {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+}
+
+.homeContainer {
+    width: 100%;
+}
+
+#homeHeader {
+    margin-left: 20px;
+    font-size: 60px;
+    color: white;
+    align-self: center;
 }

@@ -12,7 +12,6 @@ export default class Entertainment extends Component {
         arcades: [],
         goKarts: [],
         skatingRinks: [],
-        bowlingAlleys: []
     }
 
     render() {
@@ -21,7 +20,6 @@ export default class Entertainment extends Component {
             arcades,
             goKarts,
             skatingRinks,
-            bowlingAlleys,
             current } = this.state;
         const itineraryId = this.props.location.state;
 
@@ -29,7 +27,7 @@ export default class Entertainment extends Component {
         // also changes the 'current' state property to 'cinemas'
         const getNashvilleCinemas = () => {
             this.setState({ current: 'cinemas' })
-            EntertainmentRequests.getCinemasInNashville
+            EntertainmentRequests.getCinemasInNashville()
             .then((results) => {
                 this.setState({ cinemas: results })
                     console.log(results);
@@ -44,18 +42,6 @@ export default class Entertainment extends Component {
             EntertainmentRequests.getArcadesInNashville()
             .then((results) => {
                 this.setState({ arcades: results })
-                    console.log(results);
-                }
-            )
-        }
-
-        // function that gets bowling alleys in Nashville area and stores them into state
-        // also changes the 'current' state property to 'bowling alleys'
-        const getNashvilleBowlingAlleys = () => {
-            this.setState({ current: 'bowling alleys' })
-            EntertainmentRequests.getBowlingAlleysInNashville()
-            .then((results) => {
-                this.setState({ bowlingAlleys: results })
                     console.log(results);
                 }
             )
@@ -90,6 +76,7 @@ export default class Entertainment extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
+                itineraryId={itineraryId}
                 interestTypeId={4}
             />));
 
@@ -98,15 +85,8 @@ export default class Entertainment extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
+                itineraryId={itineraryId}
                 interestTypeId={5}
-            />));
-
-        // function to build out cards for each bowlingAlley item
-        const bowlingAlleyItemComponents = bowlingAlleys.map(item => (
-            <InterestTypeCard
-                item={item}
-                key={item.id}
-                interestTypeId={12}
             />));
 
         // function to build out cards for each arcade item
@@ -114,6 +94,7 @@ export default class Entertainment extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
+                itineraryId={itineraryId}
                 interestTypeId={11}
             />));
 
@@ -122,6 +103,7 @@ export default class Entertainment extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
+                itineraryId={itineraryId}
                 interestTypeId={13}
             />));
 
@@ -150,11 +132,6 @@ export default class Entertainment extends Component {
                                 <h2>Arcades</h2>
                             </div>
                         </button>
-                        <button onClick={getNashvilleBowlingAlleys}>
-                            <div className="interestTypeCard">
-                                <h2>Bowling Alleys</h2>
-                            </div>
-                        </button>
                     </div>
                 )
             }
@@ -175,16 +152,6 @@ export default class Entertainment extends Component {
                 return (
                     <div>
                         {arcadeItemComponents}
-                    </div>
-                )
-            }
-
-            /* loads bowlingAlley items in the entertainment interest container 
-                if the 'current' property in state is equal to 'bowling alleys'. */
-            if (current === 'bowling alleys') {
-                return (
-                    <div>
-                        {bowlingAlleyItemComponents}
                     </div>
                 )
             }

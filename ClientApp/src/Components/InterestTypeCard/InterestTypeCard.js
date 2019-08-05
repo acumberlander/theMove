@@ -5,6 +5,8 @@ import {
 	ModalBody,
 	ModalFooter,
 } from 'reactstrap';
+// import star from '../../img/star-24.png';
+// import halfStar from '../../img/star-half-48.png';
 import ApiKeys from '../../Helpers/Data/apiKeys';
 import './InterestTypeCard.scss';
 
@@ -19,9 +21,12 @@ export default class InterestTypeCard extends Component {
 		const location = {...this.props.item};
 		const itineraryId = this.props.itineraryId;
 		const interestTypeId = this.props.interestTypeId;
-		// const userId = getCurrentUserId(); <= authentication setup would allow for this
+		const lat = location.geometry.location.lat
+		const lng = location.geometry.location.lng
+
 		const myLocation = {
-			// Id: location.id,
+			Latitude: lat,
+			Longitude: lng,
 			UserId: 1,
 			ItineraryId: itineraryId,
 			InterestTypeId: interestTypeId,
@@ -46,15 +51,37 @@ export default class InterestTypeCard extends Component {
 	saveLocation = () => {
 		const newlocationToSave = {...this.state.locationToAdd};
 		BackendRequests.addNewLocation(newlocationToSave)
+		this.closeModal();
 	}
 
 	
+	// buildRating = (rating) => {
+	// 	let fullStars = Math.floor(rating);
+	// 	let imgArray = new Array(fullStars);
+	// 	let difference = rating - fullStars;
+
+	// 	for(let i=0;i<imgArray.length;i++) {
+	// 		imgArray.push(`<img src={${star}} alt=""></img>`)
+	// 	}
+	// 	if (difference >= 5) {
+	// 		imgArray.push(`<img src={${halfStar}} alt=""></img>`)
+	// 	}
+	// 	return {...imgArray}
+	// }
+
 	render() {
 		const { item } = this.props;
 		const photoRef = item.photos[0].photo_reference;
 		const apiKey = ApiKeys.data.apiKey;
 		const { modalOpen } =this.state;
-		// const htmlAttribute = item.photos[0].html_attributions[0];
+		const $ = '$';
+		const buildPrice = (priceLevel) => {
+			if (priceLevel < 1 || null) {
+				return "Price info unavailable"
+			} else {
+				return $.repeat(priceLevel);
+			}
+		}
 		
 		return (
 			<div className="cardContainer" onClick={this.openModal}>
@@ -74,7 +101,6 @@ export default class InterestTypeCard extends Component {
 					</Modal>
 				</div>
 				<img className="interestCardImg col-4" src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=${photoRef}&key=${apiKey}`} alt="interest type item"></img>
-				{/* {htmlAttribute} */}
 				<div className="col-8">
 					<div className="interestCardHeader">
 						<h3 className="">{item.name}</h3>
@@ -84,9 +110,8 @@ export default class InterestTypeCard extends Component {
 						<div className="addressAndCost">
 							<h5 className="subHeader">Address</h5>
 							<p className="">{item.formatted_address}</p>
-							{/* <p className="">Nashville, TN 37220</p> */}
 							<h5 className="subHeader">Cost Range</h5>
-							<p className="">{item.price_level}</p>
+							<p className="">{buildPrice(item.price_level)}</p>
 						</div>
 						<div className="distanceAndTime">
 							<h5 className="subHeader">Rating</h5>
