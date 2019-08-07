@@ -12,16 +12,16 @@ namespace TheMove.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GoogleMapApiController : ControllerBase
+    public class PlacesController : ControllerBase
     {
         private readonly IConfiguration _config;
 
-        public GoogleMapApiController(IConfiguration config)
+        public PlacesController(IConfiguration config)
         {
             _config = config;
         }
 
-        //restaurants+in+Sydney&key=a
+        // This is an exmaple of a query => 'restaurants+in+Sydney&'
         [HttpGet("search/{query}")]
         public ActionResult GetPlaces(string query)
         {

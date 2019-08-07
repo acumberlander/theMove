@@ -1,4 +1,4 @@
-.cardContainer {
+.cardContainer2 {
 	display: flex;
 	// flex-wrap: wrap;
 	margin-top: 30px; // <=== **** BE SURE TO GET RID OF THIS WHEN YOU'RE DONE STYLING!!!!! *****
@@ -120,6 +120,21 @@
     color: white;
 }
 
-.cardContainer:hover {
-	cursor: pointer;
+.deleteAndEditDiv {
+	display: flex;
+	flex-direction: column;
+	margin-top: 20px;
+	button {
+		background-color: #0BB7C6;
+		border: none;
+		border-radius: 50%;
+		height: 40px;
+		width: 40px;
+		margin: 10px;
+	}
+}
+
+.locationItemDiv {
+	display: flex;
+	justify-content: center;
 }

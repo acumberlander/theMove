@@ -3,6 +3,7 @@ import ApiKey from '../../Helpers/Data/apiKeys';
 import noImage from '../../img/no-image-slide.webp';
 import pencil from '../../img/edit-2-24.png';
 import trash from '../../img/trash-2-24.png';
+import { Link } from 'react-router-dom';
 import './ItineraryItem.scss';
 
 
@@ -31,11 +32,11 @@ export default class ItineraryItem extends Component {
 				if (locations[i].photo_ref === "") {
 					continue;
 				} else {
-					return <img className="itineraryImg" src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=${photoRef}&key=${apiKey}`} alt="location image"></img>
+					return (<img className="itineraryImg" src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=${photoRef}&key=${apiKey}`} alt="location image"></img>)
 				}
 			}
 			if (photoRef === "") {
-				return <img className="itineraryImg" src={noImage} alt="default image"></img>
+				return (<img className="itineraryImg" src={noImage} alt="default image"></img>)
 			}
 		}
 
@@ -43,7 +44,7 @@ export default class ItineraryItem extends Component {
 			let places = locations.length;
 			let totalCost= 0;
 			for (let i=0; i<locations.length; i++) {
-				totalCost += locations[i].price
+				totalCost += locations[i].price;
 			}
 			let avg = Math.ceil((totalCost/places));
 			
@@ -62,18 +63,26 @@ export default class ItineraryItem extends Component {
 					<button onClick={deleteItinerary} className="deleteItineraryButton">
 						<img src={trash} alt="delete"></img>
 					</button>
-					<button className="editItineraryButton">
-						<img src={pencil} alt="edit"></img>
-					</button>
+					<Link to={{
+						pathname: "/itineraryLocations/",
+						state: itineraryId}}>
+						<button className="editItineraryButton">
+							<img src={pencil} alt="edit"></img>
+						</button>
+					</Link>
 				</div>
-                <div className="itineraryItemContainer">
-					<div className="itineraryHeaderDiv">
-						<h1>{itineraryNameBuilder()}</h1>
+					<div className="itineraryItemContainer">
+						<div className="itineraryHeaderDiv">
+							<h1>{itineraryNameBuilder()}</h1>
+						</div>
+					<Link to={{
+						pathname: "/itineraryLocations/",
+						state: itineraryId}}>
+						<div className="itineraryImgDiv">
+							{imageBuilder()}
+						</div>
+					</Link>
 					</div>
-					<div className="itineraryImgDiv">
-						{/* {imageBuilder()} */}
-					</div>
-                </div>
 				<div className="sideInfo">
 					<div>
 						<h4>Overall Distance</h4>

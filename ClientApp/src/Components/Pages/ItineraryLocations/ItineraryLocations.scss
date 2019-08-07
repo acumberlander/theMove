@@ -1,0 +1,29 @@
+#itineraryLocationsHeader {
+	display: flex;
+	justify-content: left;
+	color: white;
+	margin-top: 20px;
+	font-size: 50px;
+}
+
+#itineraryLocationsDiv {
+	width: 100%;
+	padding-left: 30px;
+}
+
+.addItineraryButton2 {
+	height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    background-color:#0BB7C6;
+    border: none;
+	font-size: 40px;
+	font-weight: bold;
+	padding: 0;
+	margin: 20px;
+}
+
+.headerAndButtonDiv {
+	display: flex;
+	justify-content: space-between;
+}

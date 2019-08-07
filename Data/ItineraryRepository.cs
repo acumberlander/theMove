@@ -31,6 +31,12 @@ namespace TheMove.Data
 	                WHERE userId = @userId;",
                     new { userId }).ToList();
 
+                foreach (var itinerary in itinerariesByUser)
+                {
+                    var locationsforitinerary = db.Query<Location>("select *from locations where itineraryId =  @id", itinerary);
+                    itinerary.Locations = locationsforitinerary.ToList();
+                }
+
                 return itinerariesByUser;
             }
             throw new Exception("Found no itineraries");
@@ -115,6 +121,12 @@ namespace TheMove.Data
                                      Output deleted.*
                                      Where Id = @id",
                                      new { id });
+                
+                db.QueryFirstOrDefault<Location>(@"
+                                    Delete from locations
+                                    Output deleted.*
+                                    Where itineraryId = @id",
+                                    new { id });
 
                 if (itineraryToDelete != null)
                 {
