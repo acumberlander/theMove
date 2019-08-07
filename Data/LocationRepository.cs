@@ -39,20 +39,25 @@ namespace TheMove.Data
         }
 
         // Creates new location
-        public Location AddNewLocation(int userId, int itineraryId, string locationName)
+        public Location AddNewLocation(int userId, int itineraryId, string locationName, string address, decimal rating, int price, string photo_ref, string html_attr)
         {
             using (var db = new SqlConnection(ConnectionString))
             {
                 var insertQuery = @"
-                    Insert into Locations(userId, itineraryId, locationName)
+                    Insert into Locations(userId, itineraryId, locationName, address, rating, price, photo_ref, html_attr)
                     Output inserted.*
-                    Values(@userId, @itineraryId, @locationName)";
+                    Values(@userId, @itineraryId, @locationName, @address, @rating, @price, @photo_ref, @html_attr)";
 
                 var parameters = new
                 {
                     UserId = userId,
                     ItineraryId = itineraryId,
-                    LocationName = locationName
+                    LocationName = locationName,
+                    Address = address,
+                    Rating = rating,
+                    Price = price,
+                    Photo_ref = photo_ref,
+                    Html_attr = html_attr
                 };
 
                 newLocation = db.QueryFirstOrDefault<Location>(insertQuery, parameters);
@@ -67,7 +72,7 @@ namespace TheMove.Data
         }
 
         // Creates new LocationInterestType
-        public LocationInterestType AddNewLocationInterestType(int interestTypeId, int locationId)
+        public LocationInterestType AddNewLocationInterestType(int? interestTypeId, int locationId)
         {
             using (var db = new SqlConnection(ConnectionString))
             {

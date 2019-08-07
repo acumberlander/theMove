@@ -37,7 +37,12 @@ namespace TheMove.Controllers
             var newLocation = _locationRepository.AddNewLocation(
                 createLocationRequest.UserId,
                 createLocationRequest.ItineraryId,
-                createLocationRequest.LocationName);
+                createLocationRequest.LocationName,
+                createLocationRequest.Address,
+                createLocationRequest.Rating,
+                createLocationRequest.Price,
+                createLocationRequest.Photo_ref,
+                createLocationRequest.Html_attr);
 
             // Adds new locationInterestType
             _locationRepository.AddNewLocationInterestType(

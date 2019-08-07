@@ -15,6 +15,7 @@ import Events from '../Components/Pages/Events/Events';
 import Attractions from '../Components/Pages/Attractions/Attractions';
 import ThingsToDo from '../Components/Pages/ThingsToDo/ThingsToDo';
 import InterestTypeCard from '../Components/InterestTypeCard/InterestTypeCard';
+import ItineraryLocations from '../Components/Pages/ItineraryLocations/ItineraryLocations';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
                     <Route path='/attractions' component={Attractions} />
                     <Route path='/thingstodo/:itineraryId' component={ThingsToDo} />
                     <Route path='/interestTypeCard' component={InterestTypeCard} />
+                    <Route path='/itineraryLocations/' component={ItineraryLocations} />
                   </Switch>
                 </div>
             </React.Fragment>

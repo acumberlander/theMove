@@ -5,9 +5,8 @@ import {
 	ModalBody,
 	ModalFooter,
 } from 'reactstrap';
-// import star from '../../img/star-24.png';
-// import halfStar from '../../img/star-half-48.png';
 import ApiKeys from '../../Helpers/Data/apiKeys';
+import defaultPhoto from '../../img/no-image-slide.webp';
 import './InterestTypeCard.scss';
 
 export default class InterestTypeCard extends Component {
@@ -34,8 +33,13 @@ export default class InterestTypeCard extends Component {
 			Address: location.formatted_address,
 			Rating: location.rating,
 			Price: location.price_level,
-			Photo_Ref: location.photos[0].photo_reference,
-			Html_Attr: location.photos[0].html_attributions[0],
+		}
+		if (location.photos === undefined) {
+			myLocation.Photo_Ref = defaultPhoto;
+			// myLocation.Html_Attr = defaultPhoto;
+		} else {
+			myLocation.Photo_Ref = location.photos[0].photo_reference;
+			// myLocation.Html_Attr = location.photos[0].html_attributions[0];
 		}
 		this.setState({locationToAdd: myLocation});
 	}
@@ -54,7 +58,6 @@ export default class InterestTypeCard extends Component {
 		this.closeModal();
 	}
 
-	
 	// buildRating = (rating) => {
 	// 	let fullStars = Math.floor(rating);
 	// 	let imgArray = new Array(fullStars);
@@ -71,12 +74,19 @@ export default class InterestTypeCard extends Component {
 
 	render() {
 		const { item } = this.props;
-		const photoRef = item.photos[0].photo_reference;
+
+		let photoRef;
+		if (item.photos === undefined) {
+			photoRef = defaultPhoto;
+		} else {
+			photoRef = item.photos[0].photo_reference;
+		}
+
 		const apiKey = ApiKeys.data.apiKey;
 		const { modalOpen } =this.state;
 		const $ = '$';
 		const buildPrice = (priceLevel) => {
-			if (priceLevel < 1 || null) {
+			if (priceLevel < 1 ) {
 				return "Price info unavailable"
 			} else {
 				return $.repeat(priceLevel);

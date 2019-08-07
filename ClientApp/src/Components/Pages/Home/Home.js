@@ -2,19 +2,22 @@ import React, { Component } from 'react';
 import BackendRequests from '../../../Helpers/Data/BackendRequests/BackendRequests';
 import ItineraryItem from '../../ItineraryItem/ItineraryItem';
 import { Button } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import './Home.scss';
 
 export default class Home extends Component {
     state = {
         itinerary: {
-            userId: 1, 
-            itineraryName: "", 
-            itineraryId: 0
+            userId: 1,
+            itineraryName: "",
+            itineraryId: 0,
+            locations: []
         },
+        itineraryView: false,
         itineraries: []
     }
 
-    // function that sets the state of the itineraries property with existing itineraries
+    // function that sets the state of the itineraries property with existing itineraries.
     // it also deletes any itineraries without locations from the database and from state
     displayItineraries = () => {
         BackendRequests.getItinerariesByUser(1)
@@ -27,7 +30,7 @@ export default class Home extends Component {
                 }
             }
             if (results != null) {
-                this.setState({isEmpty: false, itineraries: itineraryArray})
+                this.setState({ itineraries: itineraryArray })
             }
         })
     }
@@ -38,13 +41,13 @@ export default class Home extends Component {
     }
 
 
-    componentDidUpdate() {
-        BackendRequests.getItinerariesByUser(1)
-        .then((results) => {
-            let itineraryArray = results.data;
-            this.setState({itineraries: itineraryArray})
-        })
-    }
+    // componentDidUpdate() {
+    //     BackendRequests.getItinerariesByUser(1)
+    //     .then((results) => {
+    //         let itineraryArray = results.data;
+    //         this.setState({itineraries: itineraryArray})
+    //     })
+    // }
 
     // function that adds a new itinerary to the database
     // and takes the user to a new page while also passing the itinerary id
@@ -58,11 +61,12 @@ export default class Home extends Component {
     }
 
     deleteItinerary = (itineraryId) => {
-        BackendRequests.deleteItinerary(itineraryId)
-        BackendRequests.getItinerariesByUser(1)
-        .then((results) => {
-            let itineraryArray = results.data
-            this.setState({itineries: itineraryArray})
+        BackendRequests.deleteItinerary(itineraryId).then(results => {
+            BackendRequests.getItinerariesByUser(1)
+            .then((results) => {
+                let itineraryArray = results.data
+                this.setState({ itineraries: itineraryArray}) // <-- This won't re-render after deleting
+            })
         })
     }
 
@@ -70,13 +74,22 @@ export default class Home extends Component {
     populateHomePage = () => {
         const { itineraries } = this.state;
         const itineraryItemComponents = itineraries.map(itinerary => (
-            <ItineraryItem 
-                itinerary={itinerary}
-                key={itinerary.id}
-                deleteItinerary={this.deleteItinerary}
-            />
+                <ItineraryItem 
+                    itinerary={itinerary}
+                    key={itinerary.id}
+                    deleteItinerary={this.deleteItinerary}
+                />
         ));
+
+        // const locationComponents;
         
+        // if (itineraryView) {
+        //     return(
+        //         <div>
+        //             {locationComponents}
+        //         </div>
+        //     )
+        // }
         if (itineraries.length === 0) {
             return(
                 <div id="addItineraryButtonDiv">
