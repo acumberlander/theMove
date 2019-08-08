@@ -91,12 +91,12 @@ export default class ItineraryItem extends Component {
 					</Link>
 					</div>
 				<div className="sideInfo">
-					<div>
+					{/* <div>
 						<h4>Overall Distance</h4>
 						<p>4.3 miles</p>
-					</div>
+					</div> */}
 					<div>
-						<h4>Price Range</h4>
+						<h4>Price Average</h4>
 						<p>{priceBuilder()}</p>
 					</div>
 				</div>

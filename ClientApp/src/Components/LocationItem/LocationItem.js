@@ -85,8 +85,8 @@ export default class LocationItem extends Component {
 							<div className="distanceAndTime">
 								<h5 className="subHeader">Rating</h5>
 								<p className="">{item.rating}</p>
-								<h5 className="subHeader">Time to Distance</h5>
-								<p className="">10 mins</p>
+								{/* <h5 className="subHeader">Time to Distance</h5>
+								<p className="">10 mins</p> */}
 							</div>
 						</div>
 					</div>

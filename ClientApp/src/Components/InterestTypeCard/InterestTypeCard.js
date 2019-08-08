@@ -5,6 +5,7 @@ import {
 	ModalBody,
 	ModalFooter,
 } from 'reactstrap';
+import { Redirect } from 'react-router';
 import ApiKeys from '../../Helpers/Data/apiKeys';
 import defaultPhoto from '../../img/no-image-slide.webp';
 import './InterestTypeCard.scss';
@@ -64,18 +65,24 @@ export default class InterestTypeCard extends Component {
 		this.closeModal();
 	}
 
+	backToItineraryView = () => {
+		const itineraryId = this.props.itineraryId;
+		return(
+			<Redirect to={`/itineraryLocations/${itineraryId}`} />
+		)
+	}
 	
 	updateLocation = (idParam) => {
 		const newlocationToSave = {...this.state.locationToAdd};
 		const { locationId } = this.props;
-		const itineraryId = this.props.itineraryId;
 		idParam = locationId;
 		newlocationToSave.id = idParam;
-		console.log(newlocationToSave);
-		BackendRequests.updateLocation(newlocationToSave);
-		this.closeModal();
+		BackendRequests.updateLocation(newlocationToSave)
+		// .then((res) => {
+		// 	this.closeModal();
+		// 	this.backToItineraryView();
+		// });
 		this.setState({ isUpdatingLocation: false });
-		this.props.history.push(`/itineraryLocations/${itineraryId}`)
 	}
 
 	render() {
@@ -157,8 +164,8 @@ export default class InterestTypeCard extends Component {
 						<div className="distanceAndTime">
 							<h5 className="subHeader">Rating</h5>
 							<p className="">{item.rating}</p>
-							<h5 className="subHeader">Time to Distance</h5>
-							<p className="">10 mins</p>
+							{/* <h5 className="subHeader">Time to Distance</h5>
+							<p className="">10 mins</p> */}
 						</div>
 					</div>
 				</div>

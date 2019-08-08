@@ -68,6 +68,14 @@ export default class ItineraryLocations extends Component {
         })
     }
 
+    // function that adds a new location to the database
+    // and takes the user to a new page while also passing the itinerary id
+    addNewLocation = () => {
+        const itineraryId = this.props.location.state;
+        this.props.history.push(`/thingsToDo/${itineraryId}`)
+    }
+
+    // function that deletes an itinerary from the database based of id
     deleteLocation = () => {
         BackendRequests.deleteLocation(this.locationId)
         .then(() =>{
@@ -100,7 +108,7 @@ export default class ItineraryLocations extends Component {
                 <div className="headerAndButtonDiv">
                     <h1 id="itineraryLocationsHeader">{"Locations for Itinerary"}</h1>
                     <div id="addItineraryButtonDiv3">
-                        <Button onClick={this.addNewItinerary} className="addItineraryButton2">
+                        <Button onClick={this.addNewLocation} className="addItineraryButton2">
                             +    
                         </Button>
                     </div>
