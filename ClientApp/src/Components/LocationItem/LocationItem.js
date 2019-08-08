@@ -6,7 +6,7 @@ import trash from '../../img/trash-2-24.png';
 import { Link } from 'react-router-dom';
 import './LocationItem.scss';
 
-export default class InterestTypeCard extends Component {
+export default class LocationItem extends Component {
 	state = {
 	}
 	
@@ -59,7 +59,7 @@ export default class InterestTypeCard extends Component {
 						<img src={trash} alt="delete"></img>
 					</button>
 					<Link to={{
-						pathname: "/thingstodo/",
+						pathname: `/thingstodo/${itineraryId}`,
 						itineraryId: itineraryId,
 						locationId: item.id
 						}}>

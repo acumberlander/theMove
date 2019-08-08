@@ -30,6 +30,15 @@ namespace TheMove.Controllers
             return Ok(locationsByItinerary);
         }
 
+        // Gets single location by location id
+        [HttpGet("getLocationById/{id}")]
+        public ActionResult GetLocationById(int id)
+        {
+            var locationById = _locationRepository.GetLocationById(id);
+
+            return Ok(locationById);
+        }
+
         // Adds a new location 
         [HttpPost("createLocation")]
         public ActionResult AddLocation(CreateLocationRequest createLocationRequest)
@@ -58,7 +67,7 @@ namespace TheMove.Controllers
         }
 
         // Updates location name by id
-        [HttpPut("updateLocation/{id}")]
+        [HttpPut("updateLocation")]
         public ActionResult UpdateLocation(Location locationToUpdate)
         {
             var updatedLocation = _locationRepository.UpdateLocation(locationToUpdate);

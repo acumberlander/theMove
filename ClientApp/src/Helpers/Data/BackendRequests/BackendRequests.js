@@ -8,11 +8,14 @@ const baseUrl = data.data.baseUrl;
 // function that posts a new location to the database
 const addNewLocation = location => axios.post(`${baseUrl}/locations/createLocation`, location);
 
+// function that gets single location from database based off location id
+const getSingleLocation = id => axios.get(`	${baseUrl}/locations/getLocationById/${id}`);
+
 // function that gets locations from database based off itinerary id
 const getLocationsByItinerary = itineraryId => axios.get(`${baseUrl}/locations/getLocationsByItinerary/${itineraryId}`)
 
 // function that updates location in database off location id
-const updateLocation = (id, location) => axios.put(`${baseUrl}/locations/updateLocation/${id}`, location);
+const updateLocation = (location) => axios.put(`${baseUrl}/locations/updateLocation`, location);
 
 // function that deletes location in database based off location id
 const deleteLocation = id => axios.delete(`${baseUrl}/locations/deleteLocation/${id}`);
@@ -39,6 +42,7 @@ const getUserInterests = userId => axios.get(`${baseUrl}/interests/getInterestsB
 
 export default {
 	addNewLocation,
+	getSingleLocation,
 	getLocationsByItinerary,
 	updateLocation,
 	deleteLocation,

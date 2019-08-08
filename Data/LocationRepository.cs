@@ -38,6 +38,20 @@ namespace TheMove.Data
             throw new Exception("Found no locations");
         }
 
+        // Gets single location by location id
+        public List<Location> GetLocationById(int id)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var locationById = db.Query<Location>(@"
+                    Select * from locations
+                    Where id = @id;",
+                    new { id }).ToList();
+
+                return locationById;
+            }
+        }
+
         // Creates new location
         public Location AddNewLocation(int userId, int itineraryId, string locationName, string address, decimal rating, int price, string photo_ref, string html_attr)
         {
@@ -134,7 +148,14 @@ namespace TheMove.Data
                 UPDATE Locations
                 SET    UserId = @userId,
                        ItineraryId = @itineraryId,
-                       LocationName = @locationName
+                       LocationName = @locationName,
+                       Address = @address,
+                       Price = @price,
+                       Rating = @rating,
+                       Photo_ref = @photo_ref,
+                       Html_attr = @html_attr,
+                       Latitude = @latitude,
+                       Longitude = @longitude
                 WHERE  id = @id";
 
                 var rowAffected = db.Execute(updateQuery, locationToUpdate);

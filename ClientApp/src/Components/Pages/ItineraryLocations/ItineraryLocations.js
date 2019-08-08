@@ -28,7 +28,6 @@ export default class ItineraryLocations extends Component {
                 let price_level = locationArray[i].price;
 
                 
-
                 // sets each location object to the same format it was when
                 // it was received from the Google Api specifically for the
                 // price level int variable
@@ -67,19 +66,23 @@ export default class ItineraryLocations extends Component {
                 ];
 
             }
-            console.log(locationArray);
             this.setState({ locations: locationArray });
         })
     }
 
     deleteLocation = () => {
         BackendRequests.deleteLocation(this.locationId)
-        BackendRequests.getLocationsByItinerary(this.itineraryId)
-        .then((results) => {
-            let locationArray = results.data;
-            this.setState({ locations: locationArray})
+        .then(() =>{
+            BackendRequests.getLocationsByItinerary(this.itineraryId)
+            .then(results => {
+                console.log("It's running!")
+                let locationArray = results.data;
+                this.setState({ locations: locationArray})
+            })
         })
     }
+
+    
 
     render() {
         const { locations } = this.state;
@@ -88,6 +91,8 @@ export default class ItineraryLocations extends Component {
             <LocationItem
                 item={item}
                 key={item.id}
+                itineraryId={this.itineraryId}
+                locationId={this.locationId}
                 deleteLocation={this.deleteLocation}
             />
         ));

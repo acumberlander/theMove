@@ -81,15 +81,6 @@ export default class Home extends Component {
                 />
         ));
 
-        // const locationComponents;
-        
-        // if (itineraryView) {
-        //     return(
-        //         <div>
-        //             {locationComponents}
-        //         </div>
-        //     )
-        // }
         if (itineraries.length === 0) {
             return(
                 <div id="addItineraryButtonDiv">

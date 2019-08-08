@@ -21,7 +21,8 @@ export default class Entertainment extends Component {
             goKarts,
             skatingRinks,
             current } = this.state;
-        const itineraryId = this.props.location.state;
+        const itineraryId = this.props.location.itineraryId;
+        const locationId = this.props.location.location;
 
         // function that gets cinemas in Nashville area and stores them into state
         // also changes the 'current' state property to 'cinemas'
@@ -77,6 +78,7 @@ export default class Entertainment extends Component {
                 item={item}
                 key={item.id}
                 itineraryId={itineraryId}
+                locationId={locationId}
                 interestTypeId={4}
             />));
 
@@ -86,6 +88,7 @@ export default class Entertainment extends Component {
                 item={item}
                 key={item.id}
                 itineraryId={itineraryId}
+                locationId={locationId}
                 interestTypeId={5}
             />));
 
@@ -95,6 +98,7 @@ export default class Entertainment extends Component {
                 item={item}
                 key={item.id}
                 itineraryId={itineraryId}
+                locationId={locationId}
                 interestTypeId={11}
             />));
 
@@ -104,6 +108,7 @@ export default class Entertainment extends Component {
                 item={item}
                 key={item.id}
                 itineraryId={itineraryId}
+                locationId={locationId}
                 interestTypeId={13}
             />));
 

@@ -11,17 +11,24 @@ export default class ItineraryItem extends Component {
 	
 	render() {
 		const itineraryId = this.props.itinerary.id;
-		const itineraryName = this.props.itinerary.itineraryName;
+		const itineraryName = this.props.itinerary.locations[0].locationName;
 		const photoRef = this.props.itinerary.locations[0].photo_ref;
 		const apiKey = ApiKey.data.apiKey;
 		const $ = '$';
 
 		
 		const itineraryNameBuilder = () => {
-			if (itineraryName != "") {
-				return itineraryName;
+			let itineraryCharArray = itineraryName.split("");
+			let cloneArray = itineraryCharArray;
+			if (itineraryCharArray.length > 17) {
+				while(cloneArray.length > 14) {
+					cloneArray.pop()
+				}
+				cloneArray.push("...")
+				let shortenedItineraryName = cloneArray.join("");
+				return shortenedItineraryName;
 			} else {
-				return "Itinerary";
+				return itineraryName;
 			}
 		}
 

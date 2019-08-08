@@ -1,22 +1,37 @@
 import React, { Component } from 'react'
 import './ThingsToDo.scss';
 import { Link } from 'react-router-dom';
+import BackendRequests from '../../../Helpers/Data/BackendRequests/BackendRequests';
 import foodAndDrink from '../../../img/food-and-drink-icon.png';
 import attractions from '../../../img/attractions-icon.png';
 import entertainment from '../../../img/entertainment-icon.png';
 import leisure from '../../../img/leisure-icon.png';
 import nightLife from '../../../img/night-life-icon.png';
-import events from '../../../img/events-icon.png';
 
 export default class ThingsToDo extends Component {
+
+    
+    getLocationId = () => {
+        BackendRequests.getSingleLocation(this.locationNum)
+        .then((results) => {
+            let location = results.data[0];
+            this.locationId = location.id;
+            return this.locationId;
+        })
+    }
+    
+    
     render() {
         const itineraryId = this.props.match.params.itineraryId;
+        const locationId = this.props.location.locationId;
+        // const locationId = locationNum;
 
         return (
             <div className="interestSquareContainer">
                 <Link to={{
-                    pathname: "/foodanddrink",
-                    state: itineraryId
+                    pathname: `/foodanddrink`,
+                    itineraryId: itineraryId,
+                    location: locationId,
                 }}
                 >
                     <div className="interestSquare">
@@ -26,9 +41,10 @@ export default class ThingsToDo extends Component {
                         </div>
                     </div>
                 </Link>
-                <Link to={{
+                {/* <Link to={{
                     pathname: "/attractions",
-                    state: itineraryId
+                    itineraryId: itineraryId,
+                    locationId: locationId
                 }}
                 >
                     <div className="interestSquare">
@@ -37,10 +53,11 @@ export default class ThingsToDo extends Component {
                             <h3>Attractions</h3>
                         </div>
                     </div>
-                </Link>
+                </Link> */}
                 <Link to={{
                     pathname: "/entertainment",
-                    state: itineraryId
+                    itineraryId: itineraryId,
+                    locationId: locationId
                 }}
                 >
                     <div className="interestSquare">
@@ -52,7 +69,8 @@ export default class ThingsToDo extends Component {
                 </Link>
                 <Link to={{
                     pathname: "/nightlife",
-                    state: itineraryId
+                    itineraryId: itineraryId,
+                    locationId: locationId
                 }}
                 >
                     <div className="interestSquare">
@@ -64,7 +82,8 @@ export default class ThingsToDo extends Component {
                 </Link>
                 <Link to={{
                     pathname: "/leisure",
-                    state: itineraryId
+                    itineraryId: itineraryId,
+                    locationId: locationId
                 }}
                 >
                     <div className="interestSquare">
