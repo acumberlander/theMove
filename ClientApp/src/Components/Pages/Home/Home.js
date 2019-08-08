@@ -74,17 +74,20 @@ export default class Home extends Component {
 
         if (itineraries.length === 0) {
             return(
-                <div id="addItineraryButtonDiv">
-                    <Button onClick={this.addNewItinerary} className="addItineraryButton">
-                        +    
-                    </Button>
+                <div id="homeHeaderAndButton">
+                    <h1 id="homeHeader1">Create an itinerary below</h1>
+                    <div id="addItineraryButtonDiv">
+                        <Button onClick={this.addNewItinerary} className="addItineraryButton">
+                            +    
+                        </Button>
+                    </div>
                 </div>
             );
         } else {
             return(
                 <div>
                     <div id="headerAndButtonDiv">
-                        <h1 id="homeHeader">Itineraries</h1>
+                        <h1 id="homeHeader2">Itineraries</h1>
                         <div id="addItineraryButtonDiv2">
                             <Button onClick={this.addNewItinerary} className="addItineraryButton">
                                 +    
