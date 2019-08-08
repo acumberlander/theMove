@@ -28,7 +28,7 @@ export default class Attractions extends Component {
     render() {
         const { attractions } = this.state;
         const itineraryId = this.props.location.itineraryId;
-        const locationId = this.props.location.location;
+        const locationId = this.props.location.locationId;
 
         const attractionItemComponents = attractions.map( item => (
             <InterestTypeCard

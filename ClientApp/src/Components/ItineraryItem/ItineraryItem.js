@@ -54,8 +54,11 @@ export default class ItineraryItem extends Component {
 				totalCost += locations[i].price;
 			}
 			let avg = Math.ceil((totalCost/places));
-			
-			return $.repeat(avg);
+			if(avg < 1) {
+				return "Price info unavailable"
+			} else {
+				return $.repeat(avg);
+			}
 		}
 
 		const deleteItinerary = (e) => {

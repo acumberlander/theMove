@@ -22,7 +22,7 @@ export default class Entertainment extends Component {
             skatingRinks,
             current } = this.state;
         const itineraryId = this.props.location.itineraryId;
-        const locationId = this.props.location.location;
+        const locationId = this.props.location.locationId;
 
         // function that gets cinemas in Nashville area and stores them into state
         // also changes the 'current' state property to 'cinemas'

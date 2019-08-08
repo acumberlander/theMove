@@ -17,7 +17,7 @@ export default class Leisure extends Component {
     render() {
         const { art, parks, museums, current } = this.state;
         const itineraryId = this.props.location.itineraryId;
-        const locationId = this.props.location.location;
+        const locationId = this.props.location.locationId;
         
         // function that gets art in Nashville area and stores them into state
         // also changes the 'current' state property to 'art'
@@ -60,9 +60,9 @@ export default class Leisure extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
-                interestTypeId={8}
                 itineraryId={itineraryId}
                 locationId={locationId}
+                interestTypeId={8}
             />));
 
         // function to build out cards for each park item
@@ -70,9 +70,9 @@ export default class Leisure extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
-                interestTypeId={9}
-                itineraryId={itineraryId}
                 locationId={locationId}
+                itineraryId={itineraryId}
+                interestTypeId={9}
             />));
 
         // function to build out cards for each museum item
@@ -80,9 +80,9 @@ export default class Leisure extends Component {
             <InterestTypeCard
                 item={item}
                 key={item.id}
-                interestTypeId={10}
-                itineraryId={itineraryId}
                 locationId={locationId}
+                itineraryId={itineraryId}
+                interestTypeId={10}
             />));
 
         /* function that builds the intial buttons for the options: Art, Parks, and Museums */

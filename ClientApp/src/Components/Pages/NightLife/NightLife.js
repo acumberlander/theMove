@@ -15,7 +15,7 @@ export default class NightLife extends Component {
     render() {
         const { clubs, bars, current } = this.state;
         const itineraryId = this.props.location.itineraryId;
-        const locationId = this.props.location.location;
+        const locationId = this.props.location.locationId;
  
         // function that gets clubs in Nashville area and stores them into state
         // also changes the 'current' state property to 'clubs'

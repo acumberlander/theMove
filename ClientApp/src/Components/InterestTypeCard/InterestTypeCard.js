@@ -78,11 +78,11 @@ export default class InterestTypeCard extends Component {
 		idParam = locationId;
 		newlocationToSave.id = idParam;
 		BackendRequests.updateLocation(newlocationToSave)
+		this.closeModal();
+		this.setState({ isUpdatingLocation: false });
 		// .then((res) => {
-		// 	this.closeModal();
 		// 	this.backToItineraryView();
 		// });
-		this.setState({ isUpdatingLocation: false });
 	}
 
 	render() {
@@ -102,7 +102,10 @@ export default class InterestTypeCard extends Component {
 		const buildPrice = (priceLevel) => {
 			if (priceLevel < 1 ) {
 				return "Price info unavailable"
-			} else {
+			} else if(priceLevel === undefined) {
+				return "Price info unavailable"
+			}
+			else {
 				return $.repeat(priceLevel);
 			}
 		}
