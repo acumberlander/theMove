@@ -68,12 +68,14 @@ export default class InterestTypeCard extends Component {
 	updateLocation = (idParam) => {
 		const newlocationToSave = {...this.state.locationToAdd};
 		const { locationId } = this.props;
+		const itineraryId = this.props.itineraryId;
 		idParam = locationId;
 		newlocationToSave.id = idParam;
 		console.log(newlocationToSave);
 		BackendRequests.updateLocation(newlocationToSave);
 		this.closeModal();
 		this.setState({ isUpdatingLocation: false });
+		this.props.history.push(`/itineraryLocations/${itineraryId}`)
 	}
 
 	render() {

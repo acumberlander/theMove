@@ -40,15 +40,6 @@ export default class Home extends Component {
         this.displayItineraries();
     }
 
-
-    // componentDidUpdate() {
-    //     BackendRequests.getItinerariesByUser(1)
-    //     .then((results) => {
-    //         let itineraryArray = results.data;
-    //         this.setState({itineraries: itineraryArray})
-    //     })
-    // }
-
     // function that adds a new itinerary to the database
     // and takes the user to a new page while also passing the itinerary id
     addNewItinerary = () => {
@@ -65,7 +56,7 @@ export default class Home extends Component {
             BackendRequests.getItinerariesByUser(1)
             .then((results) => {
                 let itineraryArray = results.data
-                this.setState({ itineraries: itineraryArray}) // <-- This won't re-render after deleting
+                this.setState({ itineraries: itineraryArray})
             })
         })
     }

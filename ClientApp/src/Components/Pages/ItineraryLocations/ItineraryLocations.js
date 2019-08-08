@@ -27,7 +27,6 @@ export default class ItineraryLocations extends Component {
                 let locationName = locationArray[i].locationName;
                 let price_level = locationArray[i].price;
 
-                
                 // sets each location object to the same format it was when
                 // it was received from the Google Api specifically for the
                 // price level int variable
@@ -64,7 +63,6 @@ export default class ItineraryLocations extends Component {
                         "width": 1000
                     }
                 ];
-
             }
             this.setState({ locations: locationArray });
         })
@@ -82,7 +80,7 @@ export default class ItineraryLocations extends Component {
         })
     }
 
-    
+
 
     render() {
         const { locations } = this.state;

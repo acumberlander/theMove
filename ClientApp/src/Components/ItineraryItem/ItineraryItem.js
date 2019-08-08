@@ -71,7 +71,7 @@ export default class ItineraryItem extends Component {
 						<img src={trash} alt="delete"></img>
 					</button>
 					<Link to={{
-						pathname: "/itineraryLocations/",
+						pathname: `/itineraryLocations/${itineraryId}`,
 						state: itineraryId}}>
 						<button className="editItineraryButton">
 							<img src={pencil} alt="edit"></img>
@@ -83,7 +83,7 @@ export default class ItineraryItem extends Component {
 							<h1>{itineraryNameBuilder()}</h1>
 						</div>
 					<Link to={{
-						pathname: "/itineraryLocations/",
+						pathname: `/itineraryLocations/${itineraryId}`,
 						state: itineraryId}}>
 						<div className="itineraryImgDiv">
 							{imageBuilder()}
