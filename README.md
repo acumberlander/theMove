@@ -2,7 +2,7 @@
 
 The move is a CRUD application that allows users to create their own personal itinerary for locations in the Nashville area. The locations are curated using the Google Places API. The app's frontend was built in ReactJS and the backend was built in C#/.NET Core with SSMS as a database.
 
-![alt text](./img/theMove.png)
+![alt text](./ClientApp/src/img/theMove.png)
 
 ## Necesary Installs
 
@@ -20,7 +20,7 @@ To download VirtualBox click <a href="https://www.virtualbox.org/wiki/Downloads"
 
 Select OS X hosts and then follow the setup process.
 
-![virtual box](./img/virtualBox.png)
+![virtual box](./ClientApp/src/img/virtualBox.png)
 
 ### Vagrant
 
@@ -33,7 +33,7 @@ To download Git Bash click <a href="https://gitforwindows.org" >here</a>.
 
 Follow the setup process.
 
-![git bash](./img/gitBash.png)
+![git bash](./ClientApp/src/img/gitBash.png)
 
 ### Visual Studio 2019 (or higher)
 
@@ -46,7 +46,7 @@ Run the installer for Visual Studio that gets downloaded, and on the first windo
 
 Then click install at the bottom.
 
-![visualStudio](.img/visualStudio.png)
+![visualStudio](./ClientApp/src/img/visualStudio.png)
 
 ### SQL Server Management Studio (SSMS)
 
@@ -54,7 +54,7 @@ To download SSMS click <a href="https://docs.microsoft.com/en-us/sql/ssms/downlo
 
 Then follow the setup process.
 
-![ssms](./img/ssmsPic.png)
+![ssms](./ClientApp/src/img/ssmsPic.png)
 
 Once SSMS has completely downloaded you'll want to run the following query, which will create the database. 
 
