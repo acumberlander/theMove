@@ -5,6 +5,7 @@ import {
 	ModalBody,
 	ModalFooter,
 } from 'reactstrap';
+import { Redirect } from 'react-router';
 import ApiKeys from '../../Helpers/Data/apiKeys';
 import defaultPhoto from '../../img/no-image-slide.webp';
 import './InterestTypeCard.scss';
@@ -12,11 +13,13 @@ import './InterestTypeCard.scss';
 export default class InterestTypeCard extends Component {
 	state = {
 		modalOpen: false,
-		selectedItems: [],
+		isUpdatingLocation: false,
 		locationToAdd: {}
 	}
 	
 	componentDidMount() {
+		const { locationId } = this.props;
+		console.log(`Location: ${locationId}`)
 		const location = {...this.props.item};
 		const itineraryId = this.props.itineraryId;
 		const interestTypeId = this.props.interestTypeId;
@@ -42,6 +45,10 @@ export default class InterestTypeCard extends Component {
 			// myLocation.Html_Attr = location.photos[0].html_attributions[0];
 		}
 		this.setState({locationToAdd: myLocation});
+		
+		if (locationId != undefined) {
+			this.setState({ isUpdatingLocation: true })
+		}
 	}
 
 	openModal = () => {
@@ -54,25 +61,32 @@ export default class InterestTypeCard extends Component {
 
 	saveLocation = () => {
 		const newlocationToSave = {...this.state.locationToAdd};
-		BackendRequests.addNewLocation(newlocationToSave)
+		BackendRequests.addNewLocation(newlocationToSave);
 		this.closeModal();
 	}
 
-	// buildRating = (rating) => {
-	// 	let fullStars = Math.floor(rating);
-	// 	let imgArray = new Array(fullStars);
-	// 	let difference = rating - fullStars;
-
-	// 	for(let i=0;i<imgArray.length;i++) {
-	// 		imgArray.push(`<img src={${star}} alt=""></img>`)
-	// 	}
-	// 	if (difference >= 5) {
-	// 		imgArray.push(`<img src={${halfStar}} alt=""></img>`)
-	// 	}
-	// 	return {...imgArray}
-	// }
+	backToItineraryView = () => {
+		const itineraryId = this.props.itineraryId;
+		return(
+			<Redirect to={`/itineraryLocations/${itineraryId}`} />
+		)
+	}
+	
+	updateLocation = (idParam) => {
+		const newlocationToSave = {...this.state.locationToAdd};
+		const { locationId } = this.props;
+		idParam = locationId;
+		newlocationToSave.id = idParam;
+		BackendRequests.updateLocation(newlocationToSave)
+		this.closeModal();
+		this.setState({ isUpdatingLocation: false });
+		// .then((res) => {
+		// 	this.backToItineraryView();
+		// });
+	}
 
 	render() {
+		const { isUpdatingLocation } = this.state;
 		const { item } = this.props;
 
 		let photoRef;
@@ -88,28 +102,55 @@ export default class InterestTypeCard extends Component {
 		const buildPrice = (priceLevel) => {
 			if (priceLevel < 1 ) {
 				return "Price info unavailable"
-			} else {
+			} else if(priceLevel === undefined) {
+				return "Price info unavailable"
+			}
+			else {
 				return $.repeat(priceLevel);
 			}
 		}
-		
-		return (
-			<div className="cardContainer" onClick={this.openModal}>
-				<div>
+		const buildModal = () => {
+			if (isUpdatingLocation) {
+				return(
+					<div>
 					<Modal className="confirmModal"
 						isOpen={modalOpen}
 					>
 						<ModalBody className="addLocationModalBody">
-							<p>Add location to your itinerary?</p>
+							<p>Update your location?</p>
 						</ModalBody>
 						<ModalFooter>
 							<div className="confirmButtonsDiv">
-								<button className="confirmButton" onClick={this.saveLocation}>Yes</button>
+								<button className="confirmButton" onClick={this.updateLocation}>Yes</button>
 								<button className="cancelButton" onClick={this.closeModal}>Cancel</button>
 							</div>
 						</ModalFooter>
 					</Modal>
 				</div>
+				)
+			} else {
+				return(
+					<div>
+						<Modal className="confirmModal"
+							isOpen={modalOpen}
+						>
+							<ModalBody className="addLocationModalBody">
+								<p>Add location to your itinerary?</p>
+							</ModalBody>
+							<ModalFooter>
+								<div className="confirmButtonsDiv">
+									<button className="confirmButton" onClick={this.saveLocation}>Yes</button>
+									<button className="cancelButton" onClick={this.closeModal}>Cancel</button>
+								</div>
+							</ModalFooter>
+						</Modal>
+					</div>
+				)
+			}
+		}
+		return (
+			<div className="cardContainer" onClick={this.openModal}>
+				{buildModal()}
 				<img className="interestCardImg col-4" src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=${photoRef}&key=${apiKey}`} alt="interest type item"></img>
 				<div className="col-8">
 					<div className="interestCardHeader">
@@ -126,8 +167,8 @@ export default class InterestTypeCard extends Component {
 						<div className="distanceAndTime">
 							<h5 className="subHeader">Rating</h5>
 							<p className="">{item.rating}</p>
-							<h5 className="subHeader">Time to Distance</h5>
-							<p className="">10 mins</p>
+							{/* <h5 className="subHeader">Time to Distance</h5>
+							<p className="">10 mins</p> */}
 						</div>
 					</div>
 				</div>

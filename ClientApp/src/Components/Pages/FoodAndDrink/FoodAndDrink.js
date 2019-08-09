@@ -15,8 +15,10 @@ export default class FoodAndDrink extends Component {
 
     render() {
         const { restaurants, cafes, bars, current } = this.state;
-        const itineraryId = this.props.location.state;
+        const itineraryId = this.props.location.itineraryId;
+        const locationId = this.props.location.location;
 
+        console.log(locationId);
         // function that gets restaurants in Nashville area and stores them into state
         // also changes the 'current' state property to 'restaurants'
         const getNashvilleRestaurants = () => {
@@ -56,6 +58,7 @@ export default class FoodAndDrink extends Component {
                 item={item}
                 key={item.id}
                 itineraryId={itineraryId}
+                locationId={locationId}
                 interestTypeId={1}
             />));
 
@@ -65,6 +68,7 @@ export default class FoodAndDrink extends Component {
                 item={item}
                 key={item.id}
                 itineraryId={itineraryId}
+                locationId={locationId}
                 interestTypeId={2}
             />));
 
@@ -74,6 +78,7 @@ export default class FoodAndDrink extends Component {
                 item={item}
                 key={item.id}
                 itineraryId={itineraryId}
+                locationId={locationId}
                 interestTypeId={3}
             />));
 

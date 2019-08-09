@@ -35,7 +35,7 @@ function App() {
                     <Route path='/attractions' component={Attractions} />
                     <Route path='/thingstodo/:itineraryId' component={ThingsToDo} />
                     <Route path='/interestTypeCard' component={InterestTypeCard} />
-                    <Route path='/itineraryLocations/' component={ItineraryLocations} />
+                    <Route path='/itineraryLocations/:itineraryId' component={ItineraryLocations} />
                   </Switch>
                 </div>
             </React.Fragment>

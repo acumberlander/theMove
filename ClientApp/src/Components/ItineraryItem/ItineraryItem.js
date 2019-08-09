@@ -11,17 +11,24 @@ export default class ItineraryItem extends Component {
 	
 	render() {
 		const itineraryId = this.props.itinerary.id;
-		const itineraryName = this.props.itinerary.itineraryName;
+		const itineraryName = this.props.itinerary.locations[0].locationName;
 		const photoRef = this.props.itinerary.locations[0].photo_ref;
 		const apiKey = ApiKey.data.apiKey;
 		const $ = '$';
 
 		
 		const itineraryNameBuilder = () => {
-			if (itineraryName != "") {
-				return itineraryName;
+			let itineraryCharArray = itineraryName.split("");
+			let cloneArray = itineraryCharArray;
+			if (itineraryCharArray.length > 17) {
+				while(cloneArray.length > 14) {
+					cloneArray.pop()
+				}
+				cloneArray.push("...")
+				let shortenedItineraryName = cloneArray.join("");
+				return shortenedItineraryName;
 			} else {
-				return "Itinerary";
+				return itineraryName;
 			}
 		}
 
@@ -47,8 +54,11 @@ export default class ItineraryItem extends Component {
 				totalCost += locations[i].price;
 			}
 			let avg = Math.ceil((totalCost/places));
-			
-			return $.repeat(avg);
+			if(avg < 1) {
+				return "Price info unavailable"
+			} else {
+				return $.repeat(avg);
+			}
 		}
 
 		const deleteItinerary = (e) => {
@@ -64,7 +74,7 @@ export default class ItineraryItem extends Component {
 						<img src={trash} alt="delete"></img>
 					</button>
 					<Link to={{
-						pathname: "/itineraryLocations/",
+						pathname: `/itineraryLocations/${itineraryId}`,
 						state: itineraryId}}>
 						<button className="editItineraryButton">
 							<img src={pencil} alt="edit"></img>
@@ -76,7 +86,7 @@ export default class ItineraryItem extends Component {
 							<h1>{itineraryNameBuilder()}</h1>
 						</div>
 					<Link to={{
-						pathname: "/itineraryLocations/",
+						pathname: `/itineraryLocations/${itineraryId}`,
 						state: itineraryId}}>
 						<div className="itineraryImgDiv">
 							{imageBuilder()}
@@ -84,12 +94,12 @@ export default class ItineraryItem extends Component {
 					</Link>
 					</div>
 				<div className="sideInfo">
-					<div>
+					{/* <div>
 						<h4>Overall Distance</h4>
 						<p>4.3 miles</p>
-					</div>
+					</div> */}
 					<div>
-						<h4>Price Range</h4>
+						<h4>Price Average</h4>
 						<p>{priceBuilder()}</p>
 					</div>
 				</div>

@@ -27,8 +27,6 @@ export default class ItineraryLocations extends Component {
                 let locationName = locationArray[i].locationName;
                 let price_level = locationArray[i].price;
 
-                
-
                 // sets each location object to the same format it was when
                 // it was received from the Google Api specifically for the
                 // price level int variable
@@ -65,21 +63,32 @@ export default class ItineraryLocations extends Component {
                         "width": 1000
                     }
                 ];
-
             }
-            console.log(locationArray);
             this.setState({ locations: locationArray });
         })
     }
 
+    // function that adds a new location to the database
+    // and takes the user to a new page while also passing the itinerary id
+    addNewLocation = () => {
+        const itineraryId = this.props.location.state;
+        this.props.history.push(`/thingsToDo/${itineraryId}`)
+    }
+
+    // function that deletes an itinerary from the database based of id
     deleteLocation = () => {
         BackendRequests.deleteLocation(this.locationId)
-        BackendRequests.getLocationsByItinerary(this.itineraryId)
-        .then((results) => {
-            let locationArray = results.data;
-            this.setState({ locations: locationArray})
+        .then(() =>{
+            BackendRequests.getLocationsByItinerary(this.itineraryId)
+            .then(results => {
+                console.log("It's running!")
+                let locationArray = results.data;
+                this.setState({ locations: locationArray})
+            })
         })
     }
+
+
 
     render() {
         const { locations } = this.state;
@@ -88,6 +97,8 @@ export default class ItineraryLocations extends Component {
             <LocationItem
                 item={item}
                 key={item.id}
+                itineraryId={this.itineraryId}
+                locationId={this.locationId}
                 deleteLocation={this.deleteLocation}
             />
         ));
@@ -97,7 +108,7 @@ export default class ItineraryLocations extends Component {
                 <div className="headerAndButtonDiv">
                     <h1 id="itineraryLocationsHeader">{"Locations for Itinerary"}</h1>
                     <div id="addItineraryButtonDiv3">
-                        <Button onClick={this.addNewItinerary} className="addItineraryButton2">
+                        <Button onClick={this.addNewLocation} className="addItineraryButton2">
                             +    
                         </Button>
                     </div>

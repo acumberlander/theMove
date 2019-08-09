@@ -40,15 +40,6 @@ export default class Home extends Component {
         this.displayItineraries();
     }
 
-
-    // componentDidUpdate() {
-    //     BackendRequests.getItinerariesByUser(1)
-    //     .then((results) => {
-    //         let itineraryArray = results.data;
-    //         this.setState({itineraries: itineraryArray})
-    //     })
-    // }
-
     // function that adds a new itinerary to the database
     // and takes the user to a new page while also passing the itinerary id
     addNewItinerary = () => {
@@ -65,7 +56,7 @@ export default class Home extends Component {
             BackendRequests.getItinerariesByUser(1)
             .then((results) => {
                 let itineraryArray = results.data
-                this.setState({ itineraries: itineraryArray}) // <-- This won't re-render after deleting
+                this.setState({ itineraries: itineraryArray})
             })
         })
     }
@@ -81,28 +72,22 @@ export default class Home extends Component {
                 />
         ));
 
-        // const locationComponents;
-        
-        // if (itineraryView) {
-        //     return(
-        //         <div>
-        //             {locationComponents}
-        //         </div>
-        //     )
-        // }
         if (itineraries.length === 0) {
             return(
-                <div id="addItineraryButtonDiv">
-                    <Button onClick={this.addNewItinerary} className="addItineraryButton">
-                        +    
-                    </Button>
+                <div id="homeHeaderAndButton">
+                    <h1 id="homeHeader1">Create an itinerary below</h1>
+                    <div id="addItineraryButtonDiv">
+                        <Button onClick={this.addNewItinerary} className="addItineraryButton">
+                            +    
+                        </Button>
+                    </div>
                 </div>
             );
         } else {
             return(
                 <div>
                     <div id="headerAndButtonDiv">
-                        <h1 id="homeHeader">Itineraries</h1>
+                        <h1 id="homeHeader2">Itineraries</h1>
                         <div id="addItineraryButtonDiv2">
                             <Button onClick={this.addNewItinerary} className="addItineraryButton">
                                 +    
